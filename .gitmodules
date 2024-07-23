@@ -1,0 +1,4 @@
+[submodule "juice-shop"]
+	path = juice-shop
+	url = https://gitlab.com/twn-devsecops-bootcamp/latest/juice-shop.git
+	branch = feature/starting-code
