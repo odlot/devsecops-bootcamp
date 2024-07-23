@@ -1,0 +1,16 @@
+name: project-1
+
+on: workflow_dispatch
+  
+jobs:
+  yarn_test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-bullseye
+    steps:
+      - name: Install package dependencies
+        run: yarn install
+        working-directory: ./juice-shop
+      - name: Run tests
+        run: yarn test
+        working-directory: ./juice-shop
