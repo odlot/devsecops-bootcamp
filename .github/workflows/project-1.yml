@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Install package dependencies
         run: yarn install
-        working-directory: ./juice-shop
+        working-directory: juice-shop
       - name: Run tests
         run: yarn test
-        working-directory: ./juice-shop
+        working-directory: juice-shop
