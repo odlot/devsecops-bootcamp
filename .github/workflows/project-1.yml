@@ -8,6 +8,7 @@ jobs:
     container:
       image: node:18-bullseye
     steps:
+      - uses: actions/checkout@v4
       - name: Install package dependencies
         run: yarn install
         working-directory: juice-shop
