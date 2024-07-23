@@ -1,6 +1,9 @@
 name: project-1
 
-on: workflow_dispatch
+on:
+  push:
+    branches: ["dev"]
+  workflow_dispatch:
   
 jobs:
   yarn_test:
