@@ -24,8 +24,25 @@ jobs:
       - name: Run tests
         run: yarn test
 
-  build_image:
+  gitleaks:
     needs: yarn_test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: juice-shop
+    container:
+      image: zricethezav/gitleaks
+      options: "--entrypoint /bin/bash"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: GitLeaks detect
+        run: gitleaks detect --verbose --source .
+
+  build_image:
+    needs: gitleaks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
