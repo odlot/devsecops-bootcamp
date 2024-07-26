@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 env:
   IMAGE_NAME: odlotdevsecops/demo-app
-  IMAEG_TAG: juice-shop-1.0
+  IMAGE_TAG: juice-shop-1.0.${{ github.run_number }}
 
 jobs:
   yarn_test:
