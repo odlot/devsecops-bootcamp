@@ -40,4 +40,4 @@ jobs:
         with:
           context: juice-shop
           push: true
-          tags: $IMAGE_NAME:$IMAGE_TAG
+          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
