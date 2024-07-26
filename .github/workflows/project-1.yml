@@ -1,20 +1,44 @@
 name: project-1
 
 on: workflow_dispatch
-  
+
+env:
+  IMAGE_NAME: odlotdevsecops/demo-app
+  IMAEG_TAG: juice-shop-1.0
+
 jobs:
   yarn_test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: juice-shop
     container:
       image: node:18-bullseye
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: 'true'
+          submodules: "true"
       - name: Install package dependencies
         run: yarn install
-        working-directory: juice-shop
       - name: Run tests
         run: yarn test
+
+  build_image:
+    needs: yarn_test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
         working-directory: juice-shop
+    container:
+      image: docker:24
+    steps:
+      - name: Authenticate with DockerHub
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      - name: Build and tag image
+        run: docker build -t $IMAGE_NAME:$IMAGE_TAG .
+      - name: Push the image
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
