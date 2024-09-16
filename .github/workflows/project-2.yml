@@ -94,7 +94,7 @@ jobs:
         with:
           submodules: "true"
       - name: Semgrep
-        run: semgrep ci --subdir ./juice-shop
+        run: semgrep scan ./juice-shop
 
   build_image:
     needs: [gitleaks, njsscan, semgrep]
