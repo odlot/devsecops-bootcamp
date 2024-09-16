@@ -2,7 +2,9 @@
 
 Demo projects and notes while following along the course.
 
-## Project-1
+## Project 1
+
+Reference: Module 3 - Application Vulnerability Scanning
 
 ### Description
 
@@ -21,3 +23,5 @@ Setup a CI pipeline and pre-commit script to scan for secrets using [GitLeaks](h
 The pipeline `project-1.yml` can be found under .github/workflows.
 
 ![project-1](./attachments/project-1.excalidraw.png)
+
+## Project 2
