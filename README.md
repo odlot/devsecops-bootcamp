@@ -37,3 +37,9 @@ Set-up a CI pipeline for Static Application Secret Testing (SAST) using NJSScan 
 
 - NJSScan, Semgrep
 - GitHub workflow, Git
+
+### Overview
+
+The pipeline `project-2.yml` can be found under `.github/workflows`.
+
+![project-2](./attachments/project-2.excalidraw.png)

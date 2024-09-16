@@ -83,8 +83,21 @@ jobs:
         run: njsscan --exit-warning ./juice-shop
     continue-on-error: true
 
+  semgrep:
+    needs: yarn_test
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Semgrep
+        run: semgrep ci --subdir ./juice-shop
+
   build_image:
-    needs: [gitleaks, njsscan]
+    needs: [gitleaks, njsscan, semgrep]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
