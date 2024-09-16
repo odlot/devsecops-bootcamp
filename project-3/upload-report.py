@@ -4,11 +4,11 @@ import sys
 file_name = sys.argv[1]
 scan_type = ''
 
-if file_name == 'gitleaks.json':
+if file_name == 'gitleaks-report/gitleaks.json':
     scan_type = 'Gitleaks Scan'
-elif file_name == 'njsscan.sarif':
+elif file_name == 'njsscan-report/njsscan.sarif':
     scan_type = 'SARIF'
-elif file_name == 'semgrep.json':
+elif file_name == 'semgrep-report/semgrep.json':
     scan_type = 'Semgrep JSON Report'
 
 
