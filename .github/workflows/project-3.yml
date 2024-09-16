@@ -126,6 +126,8 @@ jobs:
         run: pip3 install requests
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Upload gitleaks.json
         run: python3 project-3/upload-report.py gitleaks.json
       - name: Upload njsscan.sarif
