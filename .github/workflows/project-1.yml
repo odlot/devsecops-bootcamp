@@ -61,8 +61,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run Gitleaks scan
-        run: gitleaks detect --verbose --source .
-        working-directory: juice-shop
+        run: gitleaks detect --verbose --source ./juice-shop
     continue-on-error: true
 
   build_image:
