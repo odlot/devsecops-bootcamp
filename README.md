@@ -8,7 +8,7 @@ Reference: Module 3 - Application Vulnerability Scanning
 
 ### Description
 
-Setup a CI pipeline and pre-commit script to scan for secrets using [GitLeaks](https://github.com/gitleaks/gitleaks).
+Set-up a CI pipeline and pre-commit script to scan for secrets using [GitLeaks](https://github.com/gitleaks/gitleaks).
 
 - Configure GitLeaks job in CI to check commits for secrets.
 - Create a Git pre-commit hook script that runs GitLeaks using Docker, and performs GitLeaks scan before the code is committed.
@@ -20,8 +20,20 @@ Setup a CI pipeline and pre-commit script to scan for secrets using [GitLeaks](h
 
 ### Overview
 
-The pipeline `project-1.yml` can be found under .github/workflows.
+The pipeline `project-1.yml` can be found under `.github/workflows`.
+The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of this repository.
 
 ![project-1](./attachments/project-1.excalidraw.png)
 
 ## Project 2
+
+Reference: Module 3 - Application Vulnerability Scanning
+
+### Description
+
+Set-up a CI pipeline for Static Application Secret Testing (SAST) using NJSScan and Semgrep.
+
+### Technologies Used
+
+- NJSScan, Semgrep
+- GitHub workflow, Git
