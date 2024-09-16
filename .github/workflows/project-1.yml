@@ -9,9 +9,6 @@ env:
 jobs:
   create_cache:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: juice-shop
     container:
       image: node:18-bullseye
     steps:
@@ -21,12 +18,13 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            node_modules
-            .yarn
-            yarn.lock
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+            juice-shop/node_modules
+            juice-shop/.yarn
+            juice-shop/yarn.lock
+          key: ${{ runner.os }}-yarn-${{ hashFiles('juice-shop/yarn.lock') }}
       - name: Install dependencies
         run: yarn install
+        working-directory: juice-shop
 
   yarn_test:
     needs: create_cache
@@ -45,10 +43,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            node_modules
-            .yarn
-            yarn.lock
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+            juice-shop/node_modules
+            juice-shop/.yarn
+            juice-shop/yarn.lock
+          key: ${{ runner.os }}-yarn-${{ hashFiles('juice-shop/yarn.lock') }}
       - name: Install package dependencies
         run: yarn install
       - name: Run tests
@@ -57,17 +55,14 @@ jobs:
   gitleaks:
     needs: yarn_test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: juice-shop
     container:
       image: zricethezav/gitleaks
-      options: --entrypoint=""
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run Gitleaks scan
         run: gitleaks detect --verbose --source .
+        working-directory: juice-shop
     continue-on-error: true
 
   build_image:
