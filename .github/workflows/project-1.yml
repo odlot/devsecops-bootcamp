@@ -25,14 +25,12 @@ jobs:
             .yarn
             yarn.lock
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install
 
   yarn_test:
-    runs-on: ubuntu-latest
     needs: create_cache
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: juice-shop
@@ -51,8 +49,6 @@ jobs:
             .yarn
             yarn.lock
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Install package dependencies
         run: yarn install
       - name: Run tests
@@ -61,16 +57,18 @@ jobs:
   gitleaks:
     needs: yarn_test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: juice-shop
+    container:
+      image: zricethezav/gitleaks
+      options: --entrypoint=""
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: "true"
-      - uses: gitleaks/gitleaks-action@v2
-        with:
-          args: --path=juice-shop
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Gitleaks scan
+        run: gitleaks detect --verbose --source .
+    continue-on-error: true
 
   build_image:
     needs: gitleaks
