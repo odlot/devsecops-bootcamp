@@ -8,7 +8,7 @@ Reference: Module 3 - Application Vulnerability Scanning
 
 ### Description
 
-Set-up a CI pipeline and pre-commit script to scan for secrets using [GitLeaks](https://github.com/gitleaks/gitleaks).
+Set-up a CI pipeline and pre-commit script to scan for secrets using [GitLeaks](https://github.com/gitleaks/gitleaks):
 
 - Configure GitLeaks job in CI to check commits for secrets.
 - Create a Git pre-commit hook script that runs GitLeaks using Docker, and performs GitLeaks scan before the code is committed.
@@ -31,11 +31,16 @@ Reference: Module 3 - Application Vulnerability Scanning
 
 ### Description
 
-Set-up a CI pipeline for Static Application Secret Testing (SAST) using NJSScan and Semgrep.
+Set-up a CI pipeline for Static Application Secret Testing (SAST) using NJSScan and Semgrep:
+
+- Configure NJSScan in CI to run SAST scan against repository code.
+- Configure Semgrep in CI to run additional SAST scan against repository code.
 
 ### Technologies Used
 
-- NJSScan, Semgrep
+- [NJSScan](https://github.com/ajinabraham/njsscan)
+- Semgrep
+  - **Note**: Uses [`semgrep scan`](<https://semgrep.dev/docs/getting-started/cli-oss>) instead of `semgrep ci` due to changes in the dependency.
 - GitHub workflow, Git
 
 ### Overview
@@ -43,3 +48,5 @@ Set-up a CI pipeline for Static Application Secret Testing (SAST) using NJSScan 
 The pipeline `project-2.yml` can be found under `.github/workflows`.
 
 ![project-2](./attachments/project-2.excalidraw.png)
+
+## Project 3
