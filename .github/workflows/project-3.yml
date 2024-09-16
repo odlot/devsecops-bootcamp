@@ -129,11 +129,11 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
       - name: Upload gitleaks.json
-        run: python3 project-3/upload-report.py gitleaks.json
+        run: python3 project-3/upload-report.py gitleaks-report/gitleaks.json
       - name: Upload njsscan.sarif
-        run: python3 project-3/upload-report.py njsscan.sarif
+        run: python3 project-3/upload-report.py njsscan-report/njsscan.sarif
       - name: Upload semgrep.json
-        run: python3 project-3/upload-report.py semgrep.json
+        run: python3 project-3/upload-report.py semgrep-report/semgrep.json
 
   build_image:
     needs: upload_reports
