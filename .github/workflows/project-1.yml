@@ -27,15 +27,14 @@ jobs:
   gitleaks:
     needs: yarn_test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: juice-shop
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: "true"
       - uses: gitleaks/gitleaks-action@v2
+        with:
+          args: --path=juice-shop
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
