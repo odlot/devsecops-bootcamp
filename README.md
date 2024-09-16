@@ -55,3 +55,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 - [DefectDojo](https://defectdojo.github.io/django-DefectDojo/getting_started/demo/)
   - **Note**: You might need to re-generate a new API v2 key via the [DefectDojo demo webpage](https://demo.defectdojo.org/api/key-v2).
+
+**Overview**: The pipeline `project-3.yml` can be found under `.github/workflows`.
+
+![project-3](./attachments/project-3.excalidraw.png)

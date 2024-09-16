@@ -65,12 +65,12 @@ jobs:
           submodules: "true"
       - name: Run Gitleaks scan
         run: gitleaks detect --verbose --source ./juice-shop -f json -r gitleaks.json
+        continue-on-error: true
       - name: Upload Gitleaks report
         uses: actions/upload-artifact@v4
         with:
           name: gitleaks-report
           path: gitleaks.json
-    continue-on-error: true
 
   njsscan:
     needs: yarn_test
@@ -85,13 +85,13 @@ jobs:
       - name: Upgrade njsscan
         run: pip3 install --upgrade njsscan
       - name: Run njsscan
-        run: njsscan --exit-warning ./juice-shop --sarif -o njsscan.sarif
+        run: njsscan --sarif -o njsscan.sarif --exit-warning ./juice-shop
+        continue-on-error: true
       - name: Upload njsscan report
         uses: actions/upload-artifact@v4
         with:
           name: njsscan-report
           path: njsscan.sarif
-    continue-on-error: true
 
   semgrep:
     needs: yarn_test
@@ -122,16 +122,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: "true"
-      - name: Upgrade njsscan
+      - name: Install requests
         run: pip3 install requests
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
       - name: Upload gitleaks.json
-        run: python3 project-3/upload-reports.py gitleaks.json
+        run: python3 project-3/upload-report.py gitleaks.json
       - name: Upload njsscan.sarif
-        run: python3 project-3/upload-reports.py njsscan.sarif
+        run: python3 project-3/upload-report.py njsscan.sarif
       - name: Upload semgrep.json
-        run: python3 project-3/upload-reports.py semgrep.json
+        run: python3 project-3/upload-report.py semgrep.json
 
   build_image:
     needs: upload_reports
