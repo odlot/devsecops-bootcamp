@@ -80,3 +80,19 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 **Overview**: The pipeline `project-5.yml` can be found under `.github/workflows`.
 
 ![project-5](./attachments/project-5.excalidraw.png)
+
+## Project 6 - Upload Images to AWS ECR using CI/CD Pipeline
+
+**Reference**: Module 6 - Build a CD Pipeline
+
+**Description**: Configure CI pipeline with AWS user credentials to upload images to AWS ECR via CI/CD pipeline.
+
+- Create access keys for user in AWS IAM
+- Add AWS access keys as CI secrete environment variables for use in the pipeline
+- Update CI pipeline to build and push Docker images to ECR using the AWS access keys
+
+**Used technologies**:
+
+- AWS IAM
+- AWS ECR
+- GitHub Workflow

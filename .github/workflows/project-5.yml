@@ -133,7 +133,7 @@ jobs:
       - name: Install retirejs
         run: npm install -g retire
       - name: Run retirejs
-        run: retire --path ./juice-shop --outputformat json --outputpath retire.json
+        run: retire --path ./juice-shop --outputformat json --outputpath retirejs.json
         continue-on-error: true
       - name: Upload RetireJS report
         uses: actions/upload-artifact@v4
