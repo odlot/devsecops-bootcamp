@@ -172,9 +172,28 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 ![project-9+10](./attachments/project-9+10.excalidraw.png)
 
+The pipeline uses the AWS IAM access keys of the `github` user instead of the `root` user as defined in Project 11.
+
 ## Project 11 - TODO
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
+
+**Description**: Create a dedicated AWS IAM user for CI/CD with least priviliges accesss to securely upload image to AWS ECR.
+
+- Create AWS IAM user for CI/CD and assign permission policy for ECR access only
+- Configure CI/CD user with only AWS CLI access
+- Create AWS CLI access keys for the `github` user
+- Update CI/CD to use the `github` user access keys instead of the admin user keys
+
+**Used technologies**:
+
+- AWS IAM
+- GitHub Workflow
+
+**Overview**: Dedicataed AWS IAM user for CI/CD.
+
+![project-11-github-user](./attachments/project-11-github-user.png)
+![project-11-self-hosted-github-runner-aws-iam](./attachments/project-11-self-hosted-github-runner-aws-iam.png)
 
 ## Project 12 - TODO
 
