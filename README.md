@@ -174,7 +174,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 The pipeline uses the AWS IAM access keys of the `github` user instead of the `root` user as defined in Project 11.
 
-## Project 11 - TODO
+## Project 11 - Create CI User Account using AWS IAM
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
 
