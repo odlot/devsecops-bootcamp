@@ -6,7 +6,6 @@ env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
   IMAGE_NAME: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/juice-shop
-  IMAGE_TAG: juice-shop-1.0.${{ github.run_number }}
 
 jobs:
   create_cache:
@@ -187,6 +186,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Docker Build and Push
         run: |
-          docker build -t $IMAGE_NAME:${{ github.run_number }} -t $IMAGE_NAME:latest ./juice-shop
-          docker push $IMAGE_NAME:${{ github.run_number }}
+          docker build -t $IMAGE_NAME:${{ github.sha }} -t $IMAGE_NAME:latest ./juice-shop
+          docker push $IMAGE_NAME:${{ github.sha }}
           docker push $IMAGE_NAME:latest
