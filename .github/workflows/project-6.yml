@@ -186,6 +186,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Docker Build and Push
         run: |
-          docker build -t juice-shop ./juice-shop
-          docker tag juice-shop:latest $IMAGE_NAME:latest
+          docker build -t $IMAGE_NAME:${{ github.sha }} -t $IMAGE_NAME:latest ./juice-shop
+          docker push $IMAGE_NAME:${{ github.sha }}
           docker push $IMAGE_NAME:latest
