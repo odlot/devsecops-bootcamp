@@ -127,6 +127,42 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 ## Project 8 - TODO
 
-## Project 9 - Scan Docker Images using Trivy with CI/CD Pipeline
+## Project 9 + 10 - Scan Docker Images using Trivy with CI/CD Pipeline + Upload Trivy Image Scanning Results to DefectDojo using CI/CD Pipeline
 
 **Reference**: Module 7 - Image Scanning - Build Secure Docker Images
+
+**Description**: Update CI/CD pipeline to perform Docker image scanning using Trivy and upload Trivy image scan results to DefectDojo
+
+- Create a new job in CI/CD pipeline that:
+  - Pulls docker image from private AWS ECR
+  - Runs Trivy image scan on the image
+  - Fails Trivy job only if high or critical level security findings are detected
+- Updates Trivy job to export image security findings reported as pipeline artifacts
+- Updates Python script to automatically upload Trivy security findings to DefectDojo
+- Update upload reports job to execute Python upload script for Trivy scan reports
+
+**Used technologies**:
+
+- Trivy
+- Python
+- DefectDojo
+- Git
+- GitHub Workflow
+- Docker
+- AWS ECR
+
+**Overview**: The pipeline `project-9+10.yml` can be found under `.github/workflows`.
+
+![project-9+10](./attachments/project-9+10.excalidraw.png)
+
+## Project 11 - TODO
+
+**Reference**: Module 9 - Secure Continuous Deployment & DAST
+
+## Project 12 - TODO
+
+**Reference**: Module 9 - Secure Continuous Deployment & DAST
+
+## Project 13 - TODO
+
+**Reference**: Module 9 - Secure Continuous Deployment & DAST
