@@ -76,3 +76,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 - DefectDojo
 - RetireJS
+
+**Overview**: The pipeline `project-5.yml` can be found under `.github/workflows`.
+
+![project-5](./attachments/project-5.excalidraw.png)
