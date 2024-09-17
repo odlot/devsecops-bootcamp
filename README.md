@@ -59,3 +59,20 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 **Overview**: The pipeline `project-3.yml` can be found under `.github/workflows`.
 
 ![project-3](./attachments/project-3.excalidraw.png)
+
+## Project 4 - TODO
+
+## Project 5 - Setup SCA Scanning using RetireJS and Upload Findings to DefectDojo
+
+**Reference**: Module 5 - Vulnerability Scanning for Application Dependencies
+
+**Description**: Set-up Software Composition Analysis (SCA) scanning in CI and automatically upload scan reports to DefectDojo.
+
+- Create a new job in the CI pipeline for automated SCA scanning using RetireJS
+- Configure the job to save the SCA scan report as an artifact
+- Upload the RetireJS scan report to DefectDojo using Python automation script
+
+**Used technologies**:
+
+- DefectDojo
+- RetireJS
