@@ -170,7 +170,7 @@ jobs:
         run: python3 project-8/upload-report.py retirejs-report/retirejs.json
 
   build_image:
-    needs: yarn_test
+    needs: [gitleaks, njsscan, semgrep, retirejs]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
