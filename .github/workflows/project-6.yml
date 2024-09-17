@@ -179,7 +179,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Install AWS CLI
-        run: apt install awscli
+        run: sudo apt-get install -y awscli
       - name: Login to AWS ECR
         run: aws ecr get-login-password | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
         env:
