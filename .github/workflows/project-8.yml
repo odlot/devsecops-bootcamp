@@ -1,4 +1,4 @@
-name: project-7
+name: project-8
 
 on: workflow_dispatch
 
@@ -144,8 +144,10 @@ jobs:
           name: retirejs-report
           path: retirejs.json
 
+  trivy:
+
   upload_reports:
-    needs: [gitleaks, njsscan, semgrep, retirejs]
+    needs: [gitleaks, njsscan, semgrep, retirejs, trivy]
     runs-on: ubuntu-latest
     container:
       image: python
@@ -161,13 +163,13 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
       - name: Upload gitleaks.json
-        run: python3 project-5/upload-report.py gitleaks-report/gitleaks.json
+        run: python3 project-8/upload-report.py gitleaks-report/gitleaks.json
       - name: Upload njsscan.sarif
-        run: python3 project-5/upload-report.py njsscan-report/njsscan.sarif
+        run: python3 project-8/upload-report.py njsscan-report/njsscan.sarif
       - name: Upload semgrep.json
-        run: python3 project-5/upload-report.py semgrep-report/semgrep.json
+        run: python3 project-8/upload-report.py semgrep-report/semgrep.json
       - name: Upload retirejs.json
-        run: python3 project-5/upload-report.py retirejs-report/retirejs.json
+        run: python3 project-8/upload-report.py retirejs-report/retirejs.json
 
   build_image:
     needs: upload_reports
@@ -198,9 +200,14 @@ jobs:
     container:
       image: debian:bullseye-slim
     steps:
-      - uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Configure container for access
+        run: |
+          apt update -y && apt install openssh-client -y
+          eval $(ssh-agent -s)
+          chmod 400 "${{ secrets.SSH_PRIVATE_KEY }}"
+          ssh-add "${{ secrets.SSH_PRIVATE_KEY }}"
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
       - name: Pull and update container
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $IMAGE_NAME:latest"

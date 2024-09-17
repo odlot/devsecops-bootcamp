@@ -120,3 +120,13 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 - AWS EC2
 - GitHub Workflow
 - Docker
+
+**Overview**: The pipeline `project-7.yml` can be found under `.github/workflows`.
+
+![project-7](./attachments/project-7.excalidraw.png)
+
+## Project 8 - TODO
+
+## Project 9 - Scan Docker Images using Trivy with CI/CD Pipeline
+
+**Reference**: Module 7 - Image Scanning - Build Secure Docker Images
