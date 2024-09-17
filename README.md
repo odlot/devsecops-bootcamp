@@ -121,11 +121,28 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 - GitHub Workflow
 - Docker
 
-**Overview**: The pipeline `project-7.yml` can be found under `.github/workflows`.
+**Overview**: The pipeline `project-7.yml` can be found under `.github/workflows`. The required configuration can be found under `project-7/configure.sh`.
 
 ![project-7](./attachments/project-7.excalidraw.png)
 
-## Project 8 - TODO
+## Project 8 - Use Self-Managed Runners for CI/CD
+
+**Reference**: Module 6 - Build a CD Pipeline
+
+**Description**: Create an EC2 instance and configure it as a GitHub CI/CD self-managed runner.
+
+- Create new AWS EC2 instance
+- Register the EC2 instance with GitHub CI/CD as a self-hosted runner
+- Configure EC2 instance as a GitHub runner with Shell executor instead of Docker executor
+
+**Used Technologies**:
+
+- AWS EC2
+- GitHub CI/CD
+
+**Overview**: The required configuration can be found under `project-8/configure.sh`.
+
+![project-8](./attachments/project-8-self-hosted-github-runner.png)
 
 ## Project 9 + 10 - Scan Docker Images using Trivy with CI/CD Pipeline + Upload Trivy Image Scanning Results to DefectDojo using CI/CD Pipeline
 
