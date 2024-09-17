@@ -96,3 +96,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 - AWS IAM
 - AWS ECR
 - GitHub Workflow
+
+**Overview**: The pipeline `project-6.yml` can be found under `.github/workflows`.
+
+![project-6](./attachments/project-6.excalidraw.png)
