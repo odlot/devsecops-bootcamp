@@ -1,0 +1,192 @@
+name: project-6
+
+on: workflow_dispatch
+
+env:
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  IMAGE_NAME: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/juice-shop
+  IMAGE_TAG: juice-shop-1.0.${{ github.run_number }}
+
+jobs:
+  create_cache:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-bullseye
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Install dependencies
+        run: yarn install
+        working-directory: ./juice-shop
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./juice-shop/node_modules
+            ./juice-shop/.yarn
+            ./juice-shop/yarn.lock
+          key: ${{ runner.os }}-yarn-${{ hashFiles('./juice-shop/yarn.lock') }}
+
+  yarn_test:
+    needs: create_cache
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-bullseye
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./juice-shop/node_modules
+            ./juice-shop/.yarn
+            ./juice-shop/yarn.lock
+          key: ${{ runner.os }}-yarn-${{ hashFiles('./juice-shop/yarn.lock') }}
+      - name: Install package dependencies
+        run: yarn install
+        working-directory: ./juice-shop
+      - name: Run tests
+        run: yarn test
+        working-directory: ./juice-shop
+
+  gitleaks:
+    needs: yarn_test
+    runs-on: ubuntu-latest
+    container:
+      image: zricethezav/gitleaks
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Run Gitleaks scan
+        run: gitleaks detect --verbose --source ./juice-shop -f json -r gitleaks.json
+        continue-on-error: true
+      - name: Upload Gitleaks report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks.json
+
+  njsscan:
+    needs: yarn_test
+    runs-on: ubuntu-latest
+    container:
+      image: python
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Upgrade njsscan
+        run: pip3 install --upgrade njsscan
+      - name: Run njsscan
+        run: njsscan --sarif -o njsscan.sarif --exit-warning ./juice-shop
+        continue-on-error: true
+      - name: Upload njsscan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: njsscan-report
+          path: njsscan.sarif
+
+  semgrep:
+    needs: yarn_test
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Semgrep
+        run: semgrep scan --config=p/javascript ./juice-shop --json --output semgrep.json
+        continue-on-error: true
+      - name: Upload Semgrep report
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep.json
+
+  retirejs:
+    needs: yarn_test
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-bullseye
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./juice-shop/node_modules
+            ./juice-shop/.yarn
+            ./juice-shop/yarn.lock
+          key: ${{ runner.os }}-yarn-${{ hashFiles('./juice-shop/yarn.lock') }}
+      - name: Install retirejs
+        run: npm install -g retire
+      - name: Run retirejs
+        run: retire --path ./juice-shop --outputformat json --outputpath retirejs.json
+        continue-on-error: true
+      - name: Upload RetireJS report
+        uses: actions/upload-artifact@v4
+        with:
+          name: retirejs-report
+          path: retirejs.json
+
+  upload_reports:
+    needs: [gitleaks, njsscan, semgrep, retirejs]
+    runs-on: ubuntu-latest
+    container:
+      image: python
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Install requests
+        run: pip3 install requests
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v4
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Upload gitleaks.json
+        run: python3 project-5/upload-report.py gitleaks-report/gitleaks.json
+      - name: Upload njsscan.sarif
+        run: python3 project-5/upload-report.py njsscan-report/njsscan.sarif
+      - name: Upload semgrep.json
+        run: python3 project-5/upload-report.py semgrep-report/semgrep.json
+      - name: Upload retirejs.json
+        run: python3 project-5/upload-report.py retirejs-report/retirejs.json
+
+  build_image:
+    needs: upload_reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Install AWS CLI
+        run: apt install awscli
+      - name: Login to AWS ECR
+        run: aws ecr get-login-password | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Docker Build and Push
+        run: |
+          docker build -t $IMAGE_NAME:${{ github.run_number }} -t $IMAGE_NAME:latest ./juice-shop
+          docker push $IMAGE_NAME:${{ github.run_number }}
+          docker push $IMAGE_NAME:latest
