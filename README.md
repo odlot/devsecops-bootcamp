@@ -100,3 +100,23 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 **Overview**: The pipeline `project-6.yml` can be found under `.github/workflows`.
 
 ![project-6](./attachments/project-6.excalidraw.png)
+
+## Project 7 - Deploy Application to EC2 Instance using CI/CD Pipeline
+
+**Reference**: Module 6 - Build a CD Pipeline
+
+**Description**: Deploy application to AWS EC2 instance using CI/CD pipeline.
+
+- Configure EC2 instance with Docker and ECR credentials
+- Create new deployment job in CI that automatically:
+  - Connects to EC2 instance using SSH
+  - Pulls latest Docker images from AWS ECR
+  - Stops previous running container, if applicable
+  - Runs latest Docker container
+
+**Used technologies**:
+
+- AWS IAM
+- AWS EC2
+- GitHub Workflow
+- Docker
