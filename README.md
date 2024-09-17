@@ -174,6 +174,12 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 The pipeline uses the AWS IAM access keys of the `github` user instead of the `root` user as defined in Project 11.
 
+Container deployed to the EC2 instance `app-server` from `github-runner`:
+![project-9+10-juice-shop-container](./attachments/project-9+10-juice-shop-container.png)
+
+Juice-shop available via public ip of EC2 instance on port 3000:
+![project-9+10-juice-shop-ec2](attachments/project-9+10-juice-shop-ec2.png)
+
 ## Project 11 - Create CI User Account using AWS IAM
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
