@@ -210,7 +210,7 @@ jobs:
           path: trivy.json
 
   deploy_image:
-    # needs: upload_reports
+    needs: upload_reports
     runs-on: self-hosted
     container:
       image: amazon/aws-cli
