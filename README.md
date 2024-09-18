@@ -201,7 +201,7 @@ Juice-shop available via public ip of EC2 instance on port 3000:
 ![project-11-github-user](./attachments/project-11-github-user.png)
 ![project-11-self-hosted-github-runner-aws-iam](./attachments/project-11-self-hosted-github-runner-aws-iam.png)
 
-## Project 12 - TODO
+## Project 12 - Use AWS SSM to Deploy Application to EC2 Instance
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
 
