@@ -205,6 +205,27 @@ Juice-shop available via public ip of EC2 instance on port 3000:
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
 
+**Description**: Create new EC2 role to allow more secure access from CI/CD using AWS SSM instead of SSH.
+
+- Remove SSH firewall rule from AWS EC2 security group
+- Create new IAM role for EC2 instance with `SSMManagedInstanceCore` policy, assign the role to EC2 instance for SSM permission
+- Remove SSH commands from CI pipeline
+- Add SSM access policy to GitHub IAM user permissions
+- Update GitHub workflow deploy job to:
+  - Connect to private AWS ECR repository
+  - Run docker image pull, stop, and run commands
+  - Connect to EC2 instance with SSM and run docker application deployment commands
+
+**Used technologies**:
+
+- AWS IAM
+- GitHub Workflow
+- AWS EC2
+
+**Overview**: Dedicated SSM role:
+
+![project-12-ssm-role](./attachments/project-12-ssm-role.png)
+
 ## Project 13 - TODO
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
