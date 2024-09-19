@@ -22,9 +22,11 @@ jobs:
           submodules: "true"
       - name: Terraform init
         run: terraform init
-      - name: Terraform plan
-        run: terraform plan -out "planfile"
-      - name: Terraform destroy
-        run: terraform destroy -input=false
+      #- name: Terraform plan
+      #  run: terraform plan -out "planfile"
       #- name: Terraform deploy
       #  run: terraform apply -input=false "planfile"
+      - name: Terraform plan destroy
+        run: terraform plan -destroy "planfile"
+      - name: Terraform destroy
+        run: terraform apply -auto-approve "planfile"
