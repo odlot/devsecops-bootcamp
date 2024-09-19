@@ -409,4 +409,9 @@ costs exceed a threshold.
 
 ## Part 2
 
-TODO
+### Project 20 - Provision EKS cluster with Secure Access Management
+
+**Reference**:
+
+- Module 12: Introduction to Kubernetes Security
+- Module 13: Kubernetes Access Management with AWS EKS
