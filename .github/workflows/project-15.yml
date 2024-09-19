@@ -15,9 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform:latest
-    defaults:
-      run:
-        working-directory: ./project-14
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,6 +23,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./project-14
 
       - name: Ls
         run: ls -a
@@ -35,8 +33,8 @@ jobs:
         with:
           name: terraform
           path: |
-            .terraform/
-            .terraform.lock.hcl
+            ./project-14/.terraform/
+            ./project-14/.terraform.lock.hcl
 
   validate:
     name: Terraform Validate
