@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# wait 60 seconds until instance fully initialised - needed here so that gitlab-register command is successful
+sleep 60
+
 sudo apt-get update
 
 # Install Docker
@@ -30,7 +33,10 @@ sudo apt-get install -y unzip
 unzip awscliv2.zip
 sudo ./aws/install
 
-# AWS Configuration
-export AWS_ACCESS_KEY_ID=
-export AWS_SECRET_ACCESS_KEY=
-export AWS_DEFAULT_REGION=eu-north-1
+# Set-up GitHub Runner (follow tutorial by GitHub)
+mkdir actions-runner && cd actions-runner
+curl -o actions-runner-linux-x64-2.319.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.319.1/actions-runner-linux-x64-2.319.1.tar.gz
+tar xzf ./actions-runner-linux-x64-2.319.1.tar.gz
+./config.sh --url https://github.com/odlot/devsecops-bootcamp --token ${runner_registration_token} --unattended
+
+./run.sh

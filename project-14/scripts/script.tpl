@@ -3,18 +3,32 @@
 # wait 60 seconds until instance fully initialised
 sleep 60
 
-# update package repos
-sudo apt update
+sudo apt-get update
 
-# Install docker on Ubuntu 22.04
-sudo apt  install docker.io -y
+# Install Docker
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-# Add gitlab-runner & ubuntu users to docker group
-sudo usermod -aG docker gitlab-runner
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Configure user
 sudo usermod -aG docker ubuntu
 
-# Start docker to apply the above change
 systemctl restart docker
 
 # Install AWS CLI 
-sudo apt install awscli -y
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt-get install -y unzip
+unzip awscliv2.zip
+sudo ./aws/install

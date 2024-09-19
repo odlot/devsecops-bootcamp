@@ -22,6 +22,8 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Configure user
 sudo usermod -aG docker ubuntu
 
+systemctl restart docker
+
 # Install AWS CLI 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo apt-get install -y unzip

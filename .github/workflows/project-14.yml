@@ -6,6 +6,8 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.IAC_AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.IAC_AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  TF_VAR_env_prefix: "dev"
+  TF_VAR_runner_registration_token: ${{ secrets.RUNNER_REGISTRATION_TOKEN }}
 
 jobs:
   tf:
@@ -22,10 +24,12 @@ jobs:
           submodules: "true"
       - name: Terraform init
         run: terraform init
+      # Create
       #- name: Terraform plan
       #  run: terraform plan -out "planfile"
       #- name: Terraform deploy
       #  run: terraform apply -input=false "planfile"
+      # Destroy
       - name: Terraform plan destroy
         run: terraform plan -destroy -out "planfile"
       - name: Terraform destroy

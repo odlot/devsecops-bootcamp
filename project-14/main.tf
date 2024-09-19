@@ -27,8 +27,8 @@ data "aws_iam_policy" "AmazonSSMFullAccess" {
 }
 
 # create role for ec2 service for app-server
-resource "aws_iam_role" "app-server-role" {
-  name = "app-server-role"
+resource "aws_iam_role" "tf-app-server-role" {
+  name = "tf-app-server-role"
 
   assume_role_policy = <<EOF
 {
@@ -49,24 +49,24 @@ EOF
 
 # attach the needed policies to the created ec2 role
 resource "aws_iam_role_policy_attachment" "policy-attach-ssm" {
-  role       = aws_iam_role.app-server-role.name
+  role       = aws_iam_role.tf-app-server-role.name
   policy_arn = data.aws_iam_policy.AmazonSSMManagedInstanceCore.arn
 }
 
 resource "aws_iam_role_policy_attachment" "policy-attach-ecr-full" {
-  role       = aws_iam_role.app-server-role.name
+  role       = aws_iam_role.tf-app-server-role.name
   policy_arn = data.aws_iam_policy.AmazonEC2ContainerRegistryFullAccess.arn
 }
 
 # define instance profile, so we can assign the role to our ec2 instance
-resource "aws_iam_instance_profile" "app-server-role" {
-  name = "app-server-role"
-  role = aws_iam_role.app-server-role.name
+resource "aws_iam_instance_profile" "tf-app-server-role" {
+  name = "tf-app-server-role"
+  role = aws_iam_role.tf-app-server-role.name
 }
 
 # create role for ec2 service for gitlab-runner-server
-resource "aws_iam_role" "gitlab-runner-role" {
-  name = "gitlab-runner-role"
+resource "aws_iam_role" "tf-github-runner-role" {
+  name = "tf-github-runner-role"
 
   assume_role_policy = <<EOF
 {
@@ -85,19 +85,19 @@ resource "aws_iam_role" "gitlab-runner-role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "policy-attach-ssm-gitlab" {
-  role       = aws_iam_role.gitlab-runner-role.name
+resource "aws_iam_role_policy_attachment" "policy-attach-ssm-github" {
+  role       = aws_iam_role.tf-github-runner-role.name
   policy_arn = data.aws_iam_policy.AmazonSSMFullAccess.arn
 }
 
-resource "aws_iam_role_policy_attachment" "policy-attach-ecr-full-gitlab" {
-  role       = aws_iam_role.gitlab-runner-role.name
+resource "aws_iam_role_policy_attachment" "policy-attach-ecr-full-github" {
+  role       = aws_iam_role.tf-github-runner-role.name
   policy_arn = data.aws_iam_policy.AmazonEC2ContainerRegistryFullAccess.arn
 }
 
-resource "aws_iam_instance_profile" "gitlab-runner-role" {
-  name = "gitlab-runner-role"
-  role = aws_iam_role.gitlab-runner-role.name
+resource "aws_iam_instance_profile" "tf-github-runner-role" {
+  name = "tf-github-runner-role"
+  role = aws_iam_role.tf-github-runner-role.name
 }
 
 
@@ -153,8 +153,8 @@ resource "aws_security_group" "main" {
   }
 }
 
-resource "aws_security_group" "app-server" {
-  name   = "app-server"
+resource "aws_security_group" "tf-app-server" {
+  name   = "tf-app-server"
   vpc_id = data.aws_vpc.main.id
 
   ingress {
@@ -182,14 +182,14 @@ resource "aws_security_group" "app-server" {
   }
 
   tags = {
-    Name = "app-server"
+    Name = "tf-app-server"
   }
 }
 
 ######## CREATE EC2 SERVERS ########
 
-module "ec2_app_server" {
-  depends_on = [aws_security_group.app-server]
+module "ec2_tf_app_server" {
+  depends_on = [aws_security_group.tf-app-server]
   # TF module that creates EC2 instances: https://registry.terraform.io/modules/terraform-aws-modules/ec2-instance/aws/1.0.4             
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.2.1"
@@ -218,26 +218,26 @@ module "ec2_app_server" {
   }]
 }
 
-module "ec2_gitlab_runner" {
+module "ec2_tf_github_runner" {
   depends_on = [aws_security_group.main]
   source     = "terraform-aws-modules/ec2-instance/aws"
   version    = "5.2.1"
 
-  name = "tf-gitlab-runner"
+  name = "tf-github-runner"
 
   instance_type               = "t3.small"
   availability_zone           = element(data.aws_availability_zones.available.names, 0)
   ami                         = data.aws_ami.ubuntu.id
-  iam_instance_profile        = data.aws_iam_instance_profile.gitlab-runner-role.name
+  iam_instance_profile        = data.aws_iam_instance_profile.tf-github-runner-role.name
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.main.id]
   subnet_id                   = module.vpc.public_subnets[0]
-  user_data                   = base64encode(local.script-gitlab)
+  user_data                   = base64encode(local.script-github)
 
   tags = {
     Terraform   = "true"
     Environment = var.env_prefix
-    Name        = "gitlab-runner"
+    Name        = "tf-github-runner"
   }
 
   root_block_device = [{

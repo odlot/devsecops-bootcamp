@@ -4,7 +4,7 @@ locals {
 }
 
 locals {
-  script-gitlab = templatefile("${path.module}/scripts/script-gitlab.tpl", {
+  script-github = templatefile("${path.module}/scripts/script-github.tpl", {
     # we are passing the registration_token value to the script, for the gitlab-runner register command
     runner_registration_token = var.runner_registration_token
   })
@@ -14,8 +14,8 @@ output "script" {
   value = local.script
 }
 
-output "script-gitlab" {
-  value = local.script-gitlab
+output "script-github" {
+  value = local.script-github
   # sensitive, cuz registration_token is marked sensitive and script output will not be displayed now
-  sensitive = true 
+  sensitive = true
 }

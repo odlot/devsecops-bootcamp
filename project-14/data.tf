@@ -16,24 +16,24 @@ data "aws_security_group" "main" {
   }
 }
 
-data "aws_security_group" "app-server" {
-  depends_on = [aws_security_group.app-server]
+data "aws_security_group" "tf-app-server" {
+  depends_on = [aws_security_group.tf-app-server]
   vpc_id     = data.aws_vpc.main.id
 
   filter {
     name   = "tag:Name"
-    values = ["app-server"]
+    values = ["tf-app-server"]
   }
 }
 
-data "aws_iam_instance_profile" "app-server-role" {
-  depends_on = [aws_iam_instance_profile.app-server-role]
-  name       = "app-server-role"
+data "aws_iam_instance_profile" "tf-app-server-role" {
+  depends_on = [aws_iam_instance_profile.tf-app-server-role]
+  name       = "tf-app-server-role"
 }
 
-data "aws_iam_instance_profile" "gitlab-runner-role" {
-  depends_on = [aws_iam_instance_profile.gitlab-runner-role]
-  name       = "gitlab-runner-role"
+data "aws_iam_instance_profile" "tf-github-runner-role" {
+  depends_on = [aws_iam_instance_profile.tf-github-runner-role]
+  name       = "tf-github-runner-role"
 }
 
 data "aws_ami" "ubuntu" {
