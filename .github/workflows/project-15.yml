@@ -27,38 +27,13 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Save .terraform directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform
-          path: |
-            ./project-14/.terraform/
-            ./project-14/.terraform.lock.hcl
-
-  validate:
-    name: Terraform Validate
-    runs-on: ubuntu-latest
-    needs: init
-    defaults:
-      run:
-        working-directory: ./project-14
-    container:
-      image: hashicorp/terraform:latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: "true"
-
-      #- name: Download .terraform directory
-      #  uses: actions/download-artifact@v4
+      #- name: Save .terraform directory
+      #  uses: actions/upload-artifact@v4
       #  with:
       #    name: terraform
-      #    path: ./project-14
-
-      - name: Terraform Validate
-        run: terraform validate
-        continue-on-error: true
+      #    path: |
+      #      ./project-14/.terraform/
+      #      ./project-14/.terraform.lock.hcl
 
   tfsec:
     name: TFSec Security Scan
@@ -66,9 +41,6 @@ jobs:
     needs: init
     container:
       image: aquasec/tfsec:latest
-    defaults:
-      run:
-        working-directory: ./project-14
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -76,7 +48,7 @@ jobs:
           submodules: "true"
 
       - name: TFSec Scan
-        run: tfsec . --format json --out tfsec.json
+        run: tfsec ./project-14 --format json --out tfsec.json
 
       - name: Upload TFSec report
         uses: actions/upload-artifact@v4
@@ -88,7 +60,7 @@ jobs:
   build:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    needs: validate
+    needs: init
     container:
       image: hashicorp/terraform:latest
     defaults:
@@ -100,11 +72,11 @@ jobs:
         with:
           submodules: "true"
 
-      - name: Download .terraform directory
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform
-          path: ./project-14
+      #- name: Download .terraform directory
+      #  uses: actions/download-artifact@v4
+      #  with:
+      #    name: terraform
+      #    path: ./project-14
 
       - name: Terraform Plan
         run: terraform plan -out "planfile"
