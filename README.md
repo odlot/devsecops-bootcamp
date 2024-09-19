@@ -291,3 +291,23 @@ Dynamic Application Security Testing (DAST) scans.
 For S3 bucket access policies need to be added:
 
 ![project-14-iac-permissions](./attachments/project-14-iac-permissions.png)
+
+## Project 15 - Automate Security Scanning and Deployments for IaC
+
+**Description**: Create a GitHub CI/CD pipeline for Terraform Infrastructure with built-in security scanning and code validation - GitOps
+
+- Create AWS S3 bucket and configure Terraform to use bucket
+for storing Terraform state
+- Create new GitLab CI pipeline for Terraform infrastructure that:
+  - Initializes Terraform and builds a plan artifact
+  - Validates Terraform configuration and syntax
+  - Runs a TFSec security scan on Terraform code and produces scan result artifact
+  - Deploys the Terraform code to AWS
+
+**Used technologies**:
+
+- AWS S3
+- GitHub Workflow
+- Terraform
+- Git
+- TFSec

@@ -1,0 +1,139 @@
+name: project-15
+
+on: workflow_dispatch
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.IAC_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.IAC_AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  TF_VAR_env_prefix: "dev"
+  TF_VAR_runner_registration_token: ${{ secrets.RUNNER_REGISTRATION_TOKEN }}
+
+jobs:
+  init:
+    name: Terraform Init
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:latest
+    defaults:
+      run:
+        working-directory: ./project-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Terraform Init
+        run: terraform init
+      - name: Save .terraform directory
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform
+          path: |
+            .terraform/
+            .terraform.lock.hcl
+
+  validate:
+    name: Terraform Validate
+    runs-on: ubuntu-latest
+    needs: init
+    defaults:
+      run:
+        working-directory: ./project-14
+    container:
+      image: hashicorp/terraform:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Download .terraform directory
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform
+          path: ./project-14
+
+      - name: Terraform Validate
+        run: terraform validate
+        continue-on-error: true
+
+  tfsec:
+    name: TFSec Security Scan
+    runs-on: ubuntu-latest
+    needs: init
+    container:
+      image: aquasec/tfsec:latest
+    defaults:
+      run:
+        working-directory: ./project-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: TFSec Scan
+        run: tfsec . --format json --out tfsec.json
+
+      - name: Upload TFSec report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfsec-report
+          path: ./project-14/tfsec.json
+        continue-on-error: true
+
+  build:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    needs: validate
+    container:
+      image: hashicorp/terraform:latest
+    defaults:
+      run:
+        working-directory: ./project-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Download .terraform directory
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform
+          path: ./project-14
+
+      - name: Terraform Plan
+        run: terraform plan -out "planfile"
+
+      - name: Upload Terraform Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: planfile
+          path: ./project-14/planfile
+
+  deploy:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: hashicorp/terraform:latest
+    defaults:
+      run:
+        working-directory: ./project-14
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: planfile
+          path: ./project-14
+
+      - name: Terraform Apply
+        run: terraform apply -input=false "planfile"
