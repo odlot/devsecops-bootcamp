@@ -2,7 +2,9 @@
 
 Demo projects and notes while following along the course.
 
-## Project 1 - Setup Secrets Scanning in GitLab CI and Pre-Commit Script using GitLeaks
+## Part 1
+
+### Project 1 - Setup Secrets Scanning in GitLab CI and Pre-Commit Script using GitLeaks
 
 **Reference**: Module 3 - Application Vulnerability Scanning
 
@@ -21,7 +23,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 ![project-1](./attachments/project-1.excalidraw.png)
 
-## Project 2 - Setup Static Application Security Scanning in GitLab CI using NJSScan & Semgrep
+### Project 2 - Setup Static Application Security Scanning in GitLab CI using NJSScan & Semgrep
 
 **Reference**: Module 3 - Application Vulnerability Scanning
 
@@ -41,7 +43,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 ![project-2](./attachments/project-2.excalidraw.png)
 
-## Project 3 - Upload Security Scan Results Automatically to DefectDojo
+### Project 3 - Upload Security Scan Results Automatically to DefectDojo
 
 **Reference**: Module 4 - Vulnerability Management and Remediation
 
@@ -60,7 +62,7 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 ![project-3](./attachments/project-3.excalidraw.png)
 
-## Project 4 - Remediate Weak Cryptography and SQL Injection Vulnerabilities in Application based on Security Findings
+### Project 4 - Remediate Weak Cryptography and SQL Injection Vulnerabilities in Application based on Security Findings
 
 **Description**: Review NJSScan and Semgrep security findings in DefectDojo,
 then remediate weak cryptography and SQL injection vulnerabilities in application code.
@@ -77,7 +79,7 @@ then remediate weak cryptography and SQL injection vulnerabilities in applicatio
 - Semgrep
 - NJSScan
 
-## Project 5 - Setup SCA Scanning using RetireJS and Upload Findings to DefectDojo
+### Project 5 - Setup SCA Scanning using RetireJS and Upload Findings to DefectDojo
 
 **Reference**: Module 5 - Vulnerability Scanning for Application Dependencies
 
@@ -96,7 +98,7 @@ then remediate weak cryptography and SQL injection vulnerabilities in applicatio
 
 ![project-5](./attachments/project-5.excalidraw.png)
 
-## Project 6 - Upload Images to AWS ECR using CI/CD Pipeline
+### Project 6 - Upload Images to AWS ECR using CI/CD Pipeline
 
 **Reference**: Module 6 - Build a CD Pipeline
 
@@ -116,7 +118,7 @@ then remediate weak cryptography and SQL injection vulnerabilities in applicatio
 
 ![project-6](./attachments/project-6.excalidraw.png)
 
-## Project 7 - Deploy Application to EC2 Instance using CI/CD Pipeline
+### Project 7 - Deploy Application to EC2 Instance using CI/CD Pipeline
 
 **Reference**: Module 6 - Build a CD Pipeline
 
@@ -140,7 +142,7 @@ then remediate weak cryptography and SQL injection vulnerabilities in applicatio
 
 ![project-7](./attachments/project-7.excalidraw.png)
 
-## Project 8 - Use Self-Managed Runners for CI/CD
+### Project 8 - Use Self-Managed Runners for CI/CD
 
 **Reference**: Module 6 - Build a CD Pipeline
 
@@ -159,7 +161,7 @@ then remediate weak cryptography and SQL injection vulnerabilities in applicatio
 
 ![project-8](./attachments/project-8-self-hosted-github-runner.png)
 
-## Project 9 + 10 - Scan Docker Images using Trivy with CI/CD Pipeline + Upload Trivy Image Scanning Results to DefectDojo using CI/CD Pipeline
+### Project 9 + 10 - Scan Docker Images using Trivy with CI/CD Pipeline + Upload Trivy Image Scanning Results to DefectDojo using CI/CD Pipeline
 
 **Reference**: Module 7 - Image Scanning - Build Secure Docker Images
 
@@ -195,7 +197,7 @@ Container deployed to the EC2 instance `app-server` from `github-runner`:
 Juice-shop available via public ip of EC2 instance on port 3000:
 ![project-9+10-juice-shop-ec2](attachments/project-9+10-juice-shop-ec2.png)
 
-## Project 11 - Create CI User Account using AWS IAM
+### Project 11 - Create CI User Account using AWS IAM
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
 
@@ -216,7 +218,7 @@ Juice-shop available via public ip of EC2 instance on port 3000:
 ![project-11-github-user](./attachments/project-11-github-user.png)
 ![project-11-self-hosted-github-runner-aws-iam](./attachments/project-11-self-hosted-github-runner-aws-iam.png)
 
-## Project 12 - Use AWS SSM to Deploy Application to EC2 Instance
+### Project 12 - Use AWS SSM to Deploy Application to EC2 Instance
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
 
@@ -241,7 +243,7 @@ Juice-shop available via public ip of EC2 instance on port 3000:
 
 ![project-12-ssm-role](./attachments/project-12-ssm-role.png)
 
-## Project 13 - Configure Automated DAST Scan in CI/CD Pipeline
+### Project 13 - Configure Automated DAST Scan in CI/CD Pipeline
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
 
@@ -261,7 +263,7 @@ Dynamic Application Security Testing (DAST) scans.
 - Docker
 - AWS
 
-## Project 14 - Provision AWS Infrastructure Using Terraform
+### Project 14 - Provision AWS Infrastructure Using Terraform
 
 **Reference**: Module 10 - IaC and GitOps for DevSecOps
 
@@ -292,7 +294,9 @@ For S3 bucket access policies need to be added:
 
 ![project-14-iac-permissions](./attachments/project-14-iac-permissions.png)
 
-## Project 15 - Automate Security Scanning and Deployments for IaC
+### Project 15 - Automate Security Scanning and Deployments for IaC
+
+**Reference**: Module 10 - IaC and GitOps for DevSecOps
 
 **Description**: Create a GitHub CI/CD pipeline for Terraform Infrastructure with built-in security scanning and code validation - GitOps
 
@@ -311,3 +315,73 @@ for storing Terraform state
 - Terraform
 - Git
 - TFSec
+
+### Project 16 - Create Multi-Region CloudTrail Trail and Forward Logs to CloudWatch
+
+**Reference**: Module 11 - Logging & Monitoring for Security
+
+**Description**: Create a trail in CloudTrail that captures events across all AWS regions and configure it to send event logs to CloudWatch.
+
+- Create CloudTrail Trail that:
+  - Forwards trail logs to new CloudWatch Log Group
+  - Saves CloudTrail events to S3 bucket for all AWS regions
+- Create filters on CloudTrail Trail events to quickly view events like failed login attempts
+- Create filter in CloudWatch Log Group to quickly view logging metrics
+
+**Used technologies**:
+
+- AWS (S3, CloudTrail, CloudWatch)
+
+**Overview**: Cloud-trail:
+
+![project-16-cloud-trail](./attachments/project-16-cloud-trail.png)
+
+### Project 17 - Create CloudWatch Alarm for EC2 Instance
+
+**Reference**: Module 11 - Logging & Monitoring for Security
+
+**Description**: Create CloudWatch Alarm that sends an alert email when an EC2
+instance has failed status checks for over five minutes
+
+- Create new CloudWatch metric alarm that:
+  - Checks if an EC2 instance failed status checks over a five minute period
+  - Configure the metric to the “In alarm” state if this condition is met
+  - Create a new SNS topic that sends an email when the metric is in the alarm state
+
+**Overview**: Alarm overview:
+
+![project-17-alarm-overview](./attachments/project-17-alarm-overview.png)
+![project-17-alarm-ok](./attachments/project-17-alarm-ok.png)
+
+After bringing down the EC2 instance using `ifconfig <interface> down` and waiting for some time:
+
+![project-17-alarm-triggered](./attachments/project-17-alarm-triggered.png)
+![project-17-alarm-triggered-view](./attachments/project-17-alarm-triggered-view.png)
+
+### Project 18 - Create Custom Metric Filter and Alarm for Failed Console Logins
+
+**Reference**: Module 11 - Logging & Monitoring for Security
+
+**Description**: Create a custom metric filter in CloudWatch that checks for failed AWS console logins, create an alarm to notify when failed logins exceeds a threshold.
+
+- Create Custom metric filter in CloudWatch log group that:
+  - Checks for failed logins across entire log group
+  - Creates new metric namespace for custom metric
+  - Counts the number of failed login attempts
+- Create CloudWatch alarm that:
+  - Uses the custom metric filter to count failed login attempts over a 5 minute period, and triggers the alarm if there are more than 7 failures in that period
+- Creates a new SNS topic that sends an email when the metric is in the alarm state
+
+**Used technologies**:
+
+- AWS (CloudWatch, SNS)
+
+### Project 19 - Create AWS Billing Alarms
+
+**Reference**: Module 11 - Logging & Monitoring for Security
+
+---
+
+## Part 2
+
+TODO
