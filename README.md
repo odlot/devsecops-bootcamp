@@ -316,6 +316,8 @@ for storing Terraform state
 - Git
 - TFSec
 
+**Note**: TFsec seems to be part of trivy now, but it can be installed manually as seen in `.github/workflows/project-15.yml`.
+
 ### Project 16 - Create Multi-Region CloudTrail Trail and Forward Logs to CloudWatch
 
 **Reference**: Module 11 - Logging & Monitoring for Security
@@ -415,3 +417,20 @@ costs exceed a threshold.
 
 - Module 12: Introduction to Kubernetes Security
 - Module 13: Kubernetes Access Management with AWS EKS
+
+**Description**: Provision EKS cluster with Secure Access Management for
+developer and admin roles using Security Best Practices
+
+- Infrastructure as Code configuration to:
+  - Provision a base EKS cluster
+- Add Configuration for Access Management:
+  - Configure AWS IAM Roles for Access on AWS Level
+  - Define Kubernetes Access with Role Based Access Control (RBAC) - creating K8s Roles and ClusterRoles
+  - Configure Mapping between IAM Roles and K8s Users
+
+**Used technologies**:
+
+- AWS EKS
+- AWS IAM
+- Terraform
+- Kubernetes
