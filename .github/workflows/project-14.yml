@@ -25,6 +25,6 @@ jobs:
       - name: Terraform plan
         run: terraform plan -out "planfile"
       - name: Terraform destroy
-        run: terraform destroy
+        run: terraform destroy -input=false
       #- name: Terraform deploy
       #  run: terraform apply -input=false "planfile"
