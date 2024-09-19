@@ -23,15 +23,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: "true"
+
       - name: Terraform Init
         run: terraform init
+
       - name: Save .terraform directory
         uses: actions/upload-artifact@v4
         with:
           name: terraform
           path: |
-            .terraform/
-            .terraform.lock.hcl
+            ./project-14/.terraform/
+            ./project-14/.terraform.lock.hcl
 
   validate:
     name: Terraform Validate
