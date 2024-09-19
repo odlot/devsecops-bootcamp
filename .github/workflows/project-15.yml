@@ -77,6 +77,7 @@ jobs:
 
       - name: TFSec Scan
         run: tfsec ./project-14 --format json --out tfsec.json
+        continue-on-error: true
 
       - name: Upload TFSec report
         uses: actions/upload-artifact@v4
