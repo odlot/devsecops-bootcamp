@@ -1,0 +1,21 @@
+name: project-14
+
+on: workflow_dispatch
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.IAC_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.IAC_AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+jobs:
+  tf:
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:latest
+    steps:
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform plan
+        run: terraform plan -out "planfile"
+      - name: Terraform deploy
+        run: terraform apply -input=false "planfile"
