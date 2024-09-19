@@ -376,9 +376,34 @@ After bringing down the EC2 instance using `ifconfig <interface> down` and waiti
 
 - AWS (CloudWatch, SNS)
 
+**Overview**: Alarm overview:
+
+![project-18-custom-metric](./attachments/project-18-custom-metric.png)
+![project-18-failed-login](./attachments/project-18-failed-login.png)
+![project-18-failed-login-alarm-triggered](./attachments/project-18-failed-login-alarm-triggered.png)
+![project-18-failed-login-e-mail](./attachments/project-18-failed-login-e-mail.jpeg)
+
 ### Project 19 - Create AWS Billing Alarms
 
 **Reference**: Module 11 - Logging & Monitoring for Security
+
+**Description**: Create an AWS Budgets alarm that sends an email alert if AWS
+costs exceed a threshold.
+
+- Create AWS Budget that:
+  - Sets a desired AWS monthly cost budget
+  - Emails recipients when threshold is:
+    - at 85% of actual budget spend
+    - at 100% of actual budget spend
+    - and if forecasted amount is expected to reach 100% of actual budget spend
+
+**Used technologies**:
+
+- AWS Budgets
+
+**Overview**: I've actually have created this budget right in the beginning of the AWS journey:
+
+![project-19-custom-metric](./attachments/project-19-zero-spend-budget.png)
 
 ---
 
