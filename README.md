@@ -245,3 +245,26 @@ Dynamic Application Security Testing (DAST) scans.
 - GitHub Workflow,
 - Docker
 - AWS
+
+## Project 14 - Provision AWS Infrastructure Using Terraform
+
+**Reference**: Module 10 - IaC and GitOps for DevSecOps
+
+**Description**: Automate entire process of provisioning EC2 servers, AWS networking resources, IAM roles and permissions using Terraform.
+
+- Create new IAM user for Terraform operations
+- Create IAM roles with needed policies for application server and GitLab runner instances
+- Create VPC and Security Group resources for EC2 networking
+- Create and configure two EC2 instances:
+  - Create application server with secure firewall configuration
+  - Configure script to automatically install Docker and application dependencies on the application server
+  - Create GitHub CI server with secure firewall configuration
+  - Configure script to automatically install Docker and register the instance as a GitHub runner
+
+**Used technologies**:
+
+- Terraform
+- Docker
+- Git
+- AWS (VPC, EC2, IAM)
+- GitHub Workflow
