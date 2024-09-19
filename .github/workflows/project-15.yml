@@ -28,7 +28,7 @@ jobs:
         run: terraform init
 
       - name: Ls
-        run: ls -l
+        run: ls -a
 
       - name: Save .terraform directory
         uses: actions/upload-artifact@v4
