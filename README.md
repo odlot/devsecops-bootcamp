@@ -60,7 +60,22 @@ The pre-commit hook `project-1-pre-commit.sh` is available in the root folder of
 
 ![project-3](./attachments/project-3.excalidraw.png)
 
-## Project 4 - TODO
+## Project 4 - Remediate Weak Cryptography and SQL Injection Vulnerabilities in Application based on Security Findings
+
+**Description**: Review NJSScan and Semgrep security findings in DefectDojo,
+then remediate weak cryptography and SQL injection vulnerabilities in application code.
+
+- Update application code to remediate weak hash function (e.g. juice-shop\Gruntfile.js - md5 checksum), based on NJSScan security finding in DefectDojo
+- Update application code to remediate SQL injection vulnerability, based on Semgrep security findings in DefectDojo.
+
+**Used technologies**:
+
+- JavaScript
+- DefectDojo
+- Git
+- GitHub
+- Semgrep
+- NJSScan
 
 ## Project 5 - Setup SCA Scanning using RetireJS and Upload Findings to DefectDojo
 

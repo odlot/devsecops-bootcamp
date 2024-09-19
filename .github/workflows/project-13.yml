@@ -29,8 +29,10 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Run ZAP baseline scan
         run: |
-          docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+          mkdir -p /zap/wrk
+          docker run -v /zap/wrk:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
           -t http://13.49.46.214:3000 -g gen.conf -x baseline.xml
+          cp /zap/wrk/baseline.xml baseline.xml
         continue-on-error: true
       - name: Upload zap baseline report
         uses: actions/upload-artifact@v4
