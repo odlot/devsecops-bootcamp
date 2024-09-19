@@ -65,13 +65,15 @@ jobs:
     name: TFSec Security Scan
     runs-on: ubuntu-latest
     needs: init
-    container:
-      image: aquasec/tfsec:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: "true"
+
+      - name: Install trivy
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
       - name: TFSec Scan
         run: tfsec ./project-14 --format json --out tfsec.json
