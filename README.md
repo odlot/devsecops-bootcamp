@@ -222,10 +222,26 @@ Juice-shop available via public ip of EC2 instance on port 3000:
 - GitHub Workflow
 - AWS EC2
 
-**Overview**: Dedicated SSM role:
+**Overview**: Dedicated SSM roles (attached to both instances).
 
 ![project-12-ssm-role](./attachments/project-12-ssm-role.png)
 
-## Project 13 - TODO
+## Project 13 - Configure Automated DAST Scan in CI/CD Pipeline
 
 **Reference**: Module 9 - Secure Continuous Deployment & DAST
+
+**Description**: Create ZAP job in CI/CD pipeline to run automated
+Dynamic Application Security Testing (DAST) scans.
+
+- Configure CI pipeline to deploy to test and prod environments
+- Create DAST job in CI:
+  - Run automated ZAP scans against Docker application deployed on EC2 instance
+  - Fail the ZAP job for security findings above the warning severity level
+  - Export the ZAP scan results as pipeline artifacts
+
+**Used technologies**:
+
+- Zed Attack Proxy (ZAP)
+- GitHub Workflow,
+- Docker
+- AWS
