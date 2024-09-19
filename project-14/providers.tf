@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "iac-bucket-devsecops-bootcamp"
-    key    = "infra/state.tfstate"
+    key    = "iac/state.tfstate"
     region = "eu-north-1"
   }
   required_providers {
