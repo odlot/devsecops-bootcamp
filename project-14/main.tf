@@ -199,16 +199,16 @@ module "ec2_tf_app_server" {
   instance_type               = "t3.small"
   availability_zone           = element(data.aws_availability_zones.available.names, 0) # get first az from available zones
   ami                         = data.aws_ami.ubuntu.id
-  iam_instance_profile        = data.aws_iam_instance_profile.app-server-role.name
+  iam_instance_profile        = data.aws_iam_instance_profile.tf-app-server-role.name
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.app-server.id]
+  vpc_security_group_ids      = [aws_security_group.tf-app-server.id]
   subnet_id                   = module.vpc.public_subnets[0]
   user_data                   = base64encode(local.script)
 
   tags = {
     Terraform   = "true"
     Environment = var.env_prefix
-    Name        = "app-server"
+    Name        = "tf-app-server"
   }
 
   root_block_device = [{
