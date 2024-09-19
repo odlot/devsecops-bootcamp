@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfsec-report
-          path: ./project-14/tfsec.json
+          path: tfsec.json
         continue-on-error: true
 
   build:
