@@ -25,12 +25,12 @@ jobs:
       - name: Terraform init
         run: terraform init
       # Create
-      #- name: Terraform plan
-      #  run: terraform plan -out "planfile"
-      #- name: Terraform deploy
-      #  run: terraform apply -input=false "planfile"
+      - name: Terraform plan
+        run: terraform plan -out "planfile"
+      - name: Terraform deploy
+        run: terraform apply -input=false "planfile"
       # Destroy
-      - name: Terraform plan destroy
-        run: terraform plan -destroy -out "planfile"
-      - name: Terraform destroy
-        run: terraform apply -auto-approve "planfile"
+      #- name: Terraform plan destroy
+      #  run: terraform plan -destroy -out "planfile"
+      #- name: Terraform destroy
+      #  run: terraform apply -auto-approve "planfile"
