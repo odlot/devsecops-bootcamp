@@ -50,11 +50,11 @@ jobs:
         with:
           submodules: "true"
 
-      - name: Download .terraform directory
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform
-          path: ./project-14
+      #- name: Download .terraform directory
+      #  uses: actions/download-artifact@v4
+      #  with:
+      #    name: terraform
+      #    path: ./project-14
 
       - name: Terraform Validate
         run: terraform validate
