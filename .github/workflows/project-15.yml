@@ -26,6 +26,8 @@ jobs:
         run: terraform init
       - name: Terraform validate
         run: terraform validate
+      - name: apt-get
+        run: apt-get install -y curl
       - name: Install tfsec
         run: |
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
