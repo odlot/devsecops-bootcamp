@@ -283,3 +283,11 @@ Dynamic Application Security Testing (DAST) scans.
 - Git
 - AWS (VPC, EC2, IAM)
 - GitHub Workflow
+
+**Overview**: Dedicated `iac-user`:
+
+![project-14-iac-user](./attachments/project-14-iac-user.png)
+
+For S3 bucket access policies need to be added:
+
+![project-14-iac-permissions](./attachments/project-14-iac-permissions.png)
