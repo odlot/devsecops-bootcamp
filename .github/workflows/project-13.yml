@@ -24,14 +24,15 @@ jobs:
   zap:
     needs: deploy_image
     runs-on: ubuntu-latest
-    container:
-      image: zaproxy/zap-stable
     steps:
-      - name: ZAP baseline scan
-        uses: zaproxy/action-baseline@v0.12.0
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Run ZAP baseline scan
+        run: |
+          docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+          -t http://13.49.46.214:3000 -g gen.conf -x baseline.xml
+      - name: Upload zap baseline report
+        uses: actions/upload-artifact@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: "ghcr.io/zaproxy/zaproxy:stable"
-          target: "http://13.49.46.214:3000"
-          cmd_options: "-g gen.conf -I"
-          artifact_name: "zap-baseline-scan"
+          name: zap-baseline-report
+          path: baseline.xml
