@@ -456,3 +456,30 @@ Verify with `aws sts get-caller-identity`.
 Assuming a role: <https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html>
 
 ![Assuming a role](./attachments/project-20-assume-role.png)
+
+## Project 21 - Secure IaC Pipeline for EKS Provisioning using AWS STS Web Identity
+
+**Description**: Create IaC Pipeline that establishes a secure connection with
+AWS using trusted, third-party web identity provider.
+
+- AWS Cloud Configuration:
+  - Configure Authentication with GitLab OIDC Identity Provider
+    - Create Web Identity on AWS cloud
+    - Create IAM Role with with GitLab’s Identity Provider as Trusted Entity
+- GitLab Pipeline Configuration
+  - Add Pipeline configuration that establishes a secure connection with temporary credentials on every job execution
+- Terraform Configuration in Release Pipeline:
+  - Configure TF commands to provision EKS cluster
+
+**Used technologies**:
+
+- GitHub workflow
+- AWS EKS
+- AWS STS
+- AWS IAM
+- Terraform
+- Kubernetes
+
+**Overview**: OpenID Connect from GitHub to AWS: <https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services>
+
+![OpenID Connect GitHub](./attachments/project-21-open-id-connect-github.png)
