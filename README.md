@@ -485,3 +485,6 @@ AWS using trusted, third-party web identity provider.
 ![OpenID Connect GitHub](./attachments/project-21-open-id-connect-github.png)
 ![GitHub CI role definition](./attachments/project-21-github-ci-role-definition.png)
 ![GitHub CI role assume](./attachments/project-21-github-ci-role-assume.png)
+![GitHub CI TF](./attachments/project-21-tf.png)
+
+**Note**: I left out the apply step because I did not want to incur any cost.
