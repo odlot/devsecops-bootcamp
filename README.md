@@ -434,3 +434,25 @@ developer and admin roles using Security Best Practices
 - AWS IAM
 - Terraform
 - Kubernetes
+
+**Overview**: I've adjusted the cluster size to save cost.
+The terraform files can be found under `project-20/` in the root folder.
+
+**Validation**:
+
+```bash
+aws configure  // e.g. with the admin user
+aws eks update-kubeconfig --name myapp-eks --region eu-north-1
+kubectl get node
+kubectl get pod -A
+```
+
+To connect with another user, create access keys and export them, i.e. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the current terminal session.
+
+Verify with `aws sts get-caller-identity`.
+
+`kubectl get pod -A` returns unauthorized.
+
+Assuming a role: <https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html>
+
+![Assuming a role](./attachments/project-20-assume-role.png)

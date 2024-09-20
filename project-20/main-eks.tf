@@ -47,6 +47,9 @@ module "eks" {
   create_cluster_security_group = false
   create_node_security_group    = false
 
+  manage_aws_auth_configmap = true # enables mapping between aws and eks
+  aws_auth_roles            = local.aws_k8s_role_mapping
+
   cluster_addons = {
     kube-proxy = {}
     vpc-cni    = {}
