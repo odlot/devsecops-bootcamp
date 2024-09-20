@@ -9,8 +9,6 @@ permissions:
 jobs:
   aws:
     runs-on: ubuntu-latest
-    container:
-      image: amazon/aws-cli
     steps:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -18,5 +16,11 @@ jobs:
           role-to-assume: ${{ secrets.ROLE_ARN }}
           role-session-name: role-session-${{ github.run_id }}
           aws-region: "eu-north-1"
+      - name: Install AWS cli
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          sudo apt-get install -y unzip
+          unzip awscliv2.zip
+          sudo ./aws/install
       - name: verify caller-identity
         run: aws sts get-caller-identity
