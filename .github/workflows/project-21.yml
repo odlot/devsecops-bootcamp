@@ -10,6 +10,8 @@ jobs:
   aws:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -18,3 +20,12 @@ jobs:
           aws-region: "eu-north-1"
       - name: verify caller-identity
         run: aws sts get-caller-identity
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./project-21
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: ./project-21
+      - name: Terraform plan
+        run: terraform plan -out "planfile"
+        working-directory: ./project-21
