@@ -9,6 +9,8 @@ permissions:
 jobs:
   aws:
     runs-on: ubuntu-latest
+    container:
+      image: amazon/aws-cli
     steps:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -16,3 +18,5 @@ jobs:
           role-to-assume: ${{ secrets.ROLE_ARN }}
           role-session-name: role-session-${{ github.run_id }}
           aws-region: "eu-north-1"
+      - name: verify caller-identity
+        run: aws sts get-caller-identity
