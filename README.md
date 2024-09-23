@@ -506,3 +506,7 @@ AWS using trusted, third-party web identity provider.
 - AWS IAM,
 - Terraform
 - Kubernetes
+
+**Overview**: Deployed blueprints:
+
+![Deployed blueprints](./attachments/project-22-deployed-blueprints.png)
