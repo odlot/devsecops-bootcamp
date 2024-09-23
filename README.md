@@ -488,3 +488,21 @@ AWS using trusted, third-party web identity provider.
 ![GitHub CI TF](./attachments/project-21-tf.png)
 
 **Note**: I left out the apply step because I did not want to incur any cost.
+
+## Project 22 - Bootstrap cluster with add-ons using EKS Blueprints
+
+**Description**: Deploy cluster add-ons (Cluster Autoscaler, Metric Server, Load Balancer Controller) using EKS Blueprints
+
+- Deploy and configure Cluster Autoscaler for dynamic up & down scaling of Nodes based on resource demand
+- Deploy Metrics Server needed for Autoscaler
+- Deploy AWS Load Balancer Controller that provisions AWS Load Balancers for cluster services
+
+**Used technologies**:
+
+- EKS Blueprints
+- GitHub Workflow
+- AWS EKS
+- AWS STS
+- AWS IAM,
+- Terraform
+- Kubernetes
