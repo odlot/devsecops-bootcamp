@@ -30,6 +30,17 @@ jobs:
       - name: Terraform validate
         run: terraform validate
         working-directory: ./project-22
+      # Create
       - name: Terraform plan
         run: terraform plan -out "planfile"
         working-directory: ./project-22
+      - name: Terraform deploy
+        run: terraform apply -input=false "planfile"
+        working-directory: ./project-22
+      # Destroy
+      #- name: Terraform plan destroy
+      #  run: terraform plan -destroy -out "planfile"
+      #  working-directory: ./project-22
+      #- name: Terraform destroy
+      #  run: terraform apply -auto-approve "planfile"
+      #  working-directory: ./project-22
