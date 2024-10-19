@@ -551,7 +551,12 @@ List all pods deployed in the `argocd` namespace: `kubectl get pod -n argocd`.
 
 Retrieve the ArgoCD UI password for login: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`.
 
-Port-forwarding to be able to access the ArgoCD UI:
+Localhost port-forwarding to be able to access the ArgoCD UI:
+
+```bash
+kubectl describe pod argocd-server-... -n argocd
+kubectl port-forward -n argocd pods/argocd-server-... 8080:8080
+```
 
 ### Part 2
 
