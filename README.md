@@ -533,6 +533,8 @@ AWS using trusted, third-party web identity provider.
 
 **Reference**: 16.05, 16.06, 16.07
 
+**Note**: Uses [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) for accessing the private repository `odlot/devsecops-bootcamp-online-boutique-gitops`.
+
 ### Part 2
 
 **Reference**: 16.08
