@@ -3,7 +3,6 @@ kind: Application
 metadata:
   name: online-boutique
   namespace: argocd
-
 spec:
   project: default
   destination:
@@ -13,7 +12,6 @@ spec:
     repoURL: https://github.com/odlot/devsecops-bootcamp-online-boutique-gitops.git
     path: overlays/dev
     targetRevision: main
-
   syncPolicy:
     automated:
       prune: true
