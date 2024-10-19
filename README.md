@@ -507,6 +507,40 @@ AWS using trusted, third-party web identity provider.
 - Terraform
 - Kubernetes
 
-**Overview**: Deployed blueprints:
+**Overview**: Blueprints in-deployment:
 
-![Deployed blueprints](./attachments/project-22-deployed-blueprints.png)
+![In-deployment blueprints](./attachments/project-22-in-deployment-blueprints.png)
+
+## Project 23 - Completely automated end-to-end CI/CD Pipeline with GitOps principles using GitHub CI and Argo CD
+
+**Description**: Deploy ArgoCD in EKS Cluster using IaC Pipeline
+
+- Install ArgoCD in EKS cluster
+- Create ArgoCD Application manifest
+- Configure Connection and Automatic Syncing with GitOps repository
+- Execute IaC Pipeline to deploy ArgoCD in EKS cluster
+
+**Used technologies**:
+
+- Argo CD
+- GitHub Workflow
+- AWS EKS
+- Terraform
+- Kubernetes
+- Helm Chart
+
+### Part 1
+
+**Reference**: 16.05, 16.06, 16.07
+
+### Part 2
+
+**Reference**: 16.08
+
+### Part 3
+
+**Reference**: 16.09
+
+### Part 4
+
+**Reference**: 16.10
