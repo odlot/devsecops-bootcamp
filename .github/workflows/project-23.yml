@@ -34,23 +34,23 @@ jobs:
         run: terraform validate
         working-directory: ./project-23
       # Create
-      - name: Terraform plan
-        run: terraform plan -out "planfile"
-        working-directory: ./project-23
-      - name: Terraform deploy
-        run: terraform apply -input=false "planfile"
-        working-directory: ./project-23
+      #- name: Terraform plan
+      #  run: terraform plan -out "planfile"
+      #  working-directory: ./project-23
+      #- name: Terraform deploy
+      #  run: terraform apply -input=false "planfile"
+      #  working-directory: ./project-23
       # Destroy
-      #- name: Terraform plan destroy
-      #  run: terraform plan -destroy -out "planfile"
-      #  working-directory: ./project-23
-      #- name: Terraform destroy
-      #  run: terraform apply -auto-approve "planfile"
-      #  working-directory: ./project-23
-      # Deploy ArgoCD
-      - name: ArgoCD
-        run: |
-          aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} --name ${{ secrets.TF_VAR_name }}
-          export KUBE_CONFIG_PATH=/root/.kube/config
-          kubectl apply -f online-boutique-app.yaml
+      - name: Terraform plan destroy
+        run: terraform plan -destroy -out "planfile"
         working-directory: ./project-23
+      - name: Terraform destroy
+        run: terraform apply -auto-approve "planfile"
+        working-directory: ./project-23
+      # Deploy ArgoCD
+      #- name: ArgoCD
+      #  run: |
+      #    aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} --name ${{ secrets.TF_VAR_name }}
+      #    export KUBE_CONFIG_PATH=/root/.kube/config
+      #    kubectl apply -f online-boutique-app.yaml
+      #  working-directory: ./project-23

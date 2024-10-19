@@ -535,6 +535,24 @@ AWS using trusted, third-party web identity provider.
 
 **Note**: Uses [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) for accessing the private repository `odlot/devsecops-bootcamp-online-boutique-gitops`.
 
+To connect with another user, create access keys and export them, i.e. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the current terminal session.
+
+Verify with `aws sts get-caller-identity`.
+
+```bash
+eval $(aws sts assume-role --role-arn "arn:aws:iam::<ID>:role/external-admin" --role-session-name "K8Session" | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId) AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) AWS_SESSION_TOKEN=\(.SessionToken)"')
+```
+
+Verify with `aws sts get-caller-identity`.
+
+Authenticate with eks: `aws eks --region eu-north-1 update-kubeconfig --name myapp-eks`.
+
+List all pods deployed in the `argocd` namespace: `kubectl get pod -n argocd`.
+
+Retrieve the ArgoCD UI password for login: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`.
+
+Port-forwarding to be able to access the ArgoCD UI:
+
 ### Part 2
 
 **Reference**: 16.08
