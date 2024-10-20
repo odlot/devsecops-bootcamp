@@ -12,11 +12,23 @@ env:
   TF_VAR_gitops_url: ${{ secrets.TF_VAR_gitops_url }}
   TF_VAR_gitops_username: ${{ secrets.TF_VAR_gitops_username }}
   TF_VAR_gitops_password: ${{ secrets.TF_VAR_gitops_password }}
-  TERRAFORM_CREATE: "true" # Set the value here as a string
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      terraform_create: ${{ steps.set-output.outputs.TERRAFORM_CREATE }}
+
+    steps:
+      - name: Set TERRAFORM_CREATE
+        id: set-output
+        run: |
+          echo "TERRAFORM_CREATE=true" >> $GITHUB_ENV
+        shell: bash
+
   aws-create:
-    if: ${{ env.TERRAFORM_CREATE == 'true' }}
+    needs: setup
+    if: ${{ needs.setup.outputs.terraform_create == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -51,7 +63,8 @@ jobs:
         working-directory: ./project-23
 
   aws-destroy:
-    if: ${{ env.TERRAFORM_CREATE != 'true' }}
+    needs: setup
+    if: ${{ needs.setup.outputs.terraform_create != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
