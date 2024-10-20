@@ -18,13 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       terraform_create: ${{ steps.set-output.outputs.TERRAFORM_CREATE }}
-
     steps:
       - name: Set TERRAFORM_CREATE
         id: set-output
         run: |
-          echo "TERRAFORM_CREATE=true" >> $GITHUB_ENV
-        shell: bash
+          echo "::set-output name=TERRAFORM_CREATE::true"  # Explicitly set the output
 
   aws-create:
     needs: setup
