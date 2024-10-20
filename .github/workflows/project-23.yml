@@ -12,9 +12,11 @@ env:
   TF_VAR_gitops_url: ${{ secrets.TF_VAR_gitops_url }}
   TF_VAR_gitops_username: ${{ secrets.TF_VAR_gitops_username }}
   TF_VAR_gitops_password: ${{ secrets.TF_VAR_gitops_password }}
+  TERRAFORM_CREATE: ${{ true }}
 
 jobs:
-  aws:
+  aws-create:
+    if: ${{ TERRAFORM_CREATE }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,12 +36,40 @@ jobs:
         run: terraform validate
         working-directory: ./project-23
       # Create
-      #- name: Terraform plan
-      #  run: terraform plan -out "planfile"
-      #  working-directory: ./project-23
-      #- name: Terraform deploy
-      #  run: terraform apply -input=false "planfile"
-      #  working-directory: ./project-23
+      - name: Terraform plan
+        run: terraform plan -out "planfile"
+        working-directory: ./project-23
+      - name: Terraform deploy
+        run: terraform apply -input=false "planfile"
+        working-directory: ./project-23
+      # Deploy ArgoCD
+      - name: ArgoCD
+        run: |
+          aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} -name ${{ secrets.TF_VAR_name }}
+          export KUBE_CONFIG_PATH=/root/.kube/config
+          kubectl apply -f online-boutique-app.yaml
+        working-directory: ./project-23
+
+  aws-destroy:
+    if: "!${{ TERRAFORM_CREATE }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.ROLE_ARN }}
+          role-session-name: role-session-${{ github.run_id }}
+          aws-region: "eu-north-1"
+      - name: verify caller-identity
+        run: aws sts get-caller-identity
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./project-23
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: ./project-23
       # Destroy
       - name: Terraform plan destroy
         run: terraform plan -destroy -out "planfile"
@@ -47,10 +77,3 @@ jobs:
       - name: Terraform destroy
         run: terraform apply -auto-approve "planfile"
         working-directory: ./project-23
-      # Deploy ArgoCD
-      #- name: ArgoCD
-      #  run: |
-      #    aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} --name ${{ secrets.TF_VAR_name }}
-      #    export KUBE_CONFIG_PATH=/root/.kube/config
-      #    kubectl apply -f online-boutique-app.yaml
-      #  working-directory: ./project-23
