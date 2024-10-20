@@ -17,6 +17,7 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   version          = "6.4.0"
   namespace        = "argocd"
+  timeout          = 600
   create_namespace = true
   depends_on = [
     module.eks
