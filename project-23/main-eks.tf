@@ -57,9 +57,9 @@ module "eks" {
   eks_managed_node_groups = {
     initial = {
       instance_types = ["t3.micro"]
-      min_size       = 1 #2
-      max_size       = 2 #20
-      desired_size   = 1 #4
+      min_size       = 2
+      max_size       = 8
+      desired_size   = 4
     }
   }
 
@@ -94,4 +94,27 @@ module "eks_blueprints_addons" {
       }
     ]
   }
+
+  enable_argocd        = true
+  enable_argo_rollouts = true
+
+  argocd = {
+    values = [
+      yamlencode({
+        server = {
+          service = {
+            annotations = {
+              "service.beta.kubernetes.io/aws-load-balancer-name"            = "argocd"
+              "service.beta.kubernetes.io/aws-load-balancer-type"            = "external"
+              "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type" = "ip"
+              "service.beta.kubernetes.io/aws-load-balancer-scheme"          = "internet-facing"
+            },
+            type = "LoadBalancer"
+          }
+        }
+      })
+    ]
+  }
+
 }
+
