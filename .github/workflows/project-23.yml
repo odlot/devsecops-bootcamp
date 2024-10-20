@@ -16,7 +16,7 @@ env:
 
 jobs:
   aws-create:
-    if: ${{ TERRAFORM_CREATE }}
+    if: ${{ env.TERRAFORM_CREATE }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -51,7 +51,7 @@ jobs:
         working-directory: ./project-23
 
   aws-destroy:
-    if: "!${{ TERRAFORM_CREATE }}"
+    if: "!${{ env.TERRAFORM_CREATE }}"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
