@@ -1,0 +1,90 @@
+name: project-27
+
+on: workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  TF_VAR_user_for_admin_role: ${{ secrets.TF_VAR_USER_FOR_ADMIN_ROLE }}
+  TF_VAR_user_for_dev_role: ${{ secrets.TF_VAR_USER_FOR_DEV_ROLE }}
+  TF_VAR_gitops_url: ${{ secrets.TF_VAR_gitops_url }}
+  TF_VAR_gitops_username: ${{ secrets.TF_VAR_gitops_username }}
+  TF_VAR_gitops_password: ${{ secrets.TF_VAR_gitops_password }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      terraform_create: ${{ steps.set-output.outputs.TERRAFORM_CREATE }}
+    steps:
+      - name: Set TERRAFORM_CREATE
+        id: set-output
+        run: |
+          echo "::set-output name=TERRAFORM_CREATE::false"
+
+  aws-create:
+    needs: setup
+    if: ${{ needs.setup.outputs.terraform_create == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.ROLE_ARN }}
+          role-session-name: role-session-${{ github.run_id }}
+          aws-region: "eu-north-1"
+      - name: verify caller-identity
+        run: aws sts get-caller-identity
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./project-27
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: ./project-27
+      # Create
+      - name: Terraform plan
+        run: terraform plan -out "planfile"
+        working-directory: ./project-27
+      - name: Terraform deploy
+        run: terraform apply -input=false "planfile"
+        working-directory: ./project-27
+      # Deploy ArgoCD
+      - name: ArgoCD
+        run: |
+          aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} --name ${{ secrets.TF_VAR_name }}
+          export KUBE_CONFIG_PATH=/root/.kube/config
+          kubectl apply -f online-boutique-app.yaml
+        working-directory: ./project-27
+
+  aws-destroy:
+    needs: setup
+    if: ${{ needs.setup.outputs.terraform_create != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.ROLE_ARN }}
+          role-session-name: role-session-${{ github.run_id }}
+          aws-region: "eu-north-1"
+      - name: verify caller-identity
+        run: aws sts get-caller-identity
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./project-27
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: ./project-27
+      # Destroy
+      - name: Terraform plan destroy
+        run: terraform plan -destroy -out "planfile"
+        working-directory: ./project-27
+      - name: Terraform destroy
+        run: terraform apply -auto-approve "planfile"
+        working-directory: ./project-27

@@ -529,7 +529,7 @@ AWS using trusted, third-party web identity provider.
 - Kubernetes
 - Helm Chart
 
-### Part 1
+### Project 23 - Part 1
 
 **Reference**: 16.05, 16.06, 16.07
 
@@ -568,7 +568,21 @@ kubectl port-forward -n argocd pods/argocd-server-... 8080:8080
 
 ![ArgoCD Online Boutique](./attachments/project-23-argocd-online-boutique.png)
 
-### Part 2
+### Project 23 - Part 2
+
+**Description**: Automatically deploy K8s manifest files in Cluster via ArgoCD
+
+- Write K8s manifest files for all microservices
+- Write K8s manifest for external access using Ingress
+- ArgoCD deploys microservices automatically as soon as manifest files are pushed into Git repository
+
+**Used technologies**:
+
+- Kubenertes
+- Kustomize
+- ArgoCD
+- Git
+- AWS EKS
 
 **Reference**: 16.08
 
@@ -585,18 +599,65 @@ After increasing the maximum size everything synced and was fine.
 
 ![ArgoCD Online](./attachments/project-23-argocd-online-boutique-online.png)
 
-### Part 3
+### Project 23 - Part 3
+
+**Description**: Create Pipeline for GitOps project to update Kustomization file
+
+- Configure GitHub CI pipeline
+  - to update image version of updated microservice in Kustomization file
+  - and push commit to Git repository
+- Configure GitHub access with project deploy token
+
+**Used technologies**:
+
+- Kubenertes
+- Kustomize
+- ArgoCD
+- Git
 
 **Reference**: 16.09
 
-### Part 4
+### Project 23 - Part 4
+
+**Description**: Create Pipeline for microservices application that triggers gitops pipeline
+
+- Create CI pipeline for microservices that
+  - tests the code
+  - scans for security vulnerabilities
+  - builds and pushes to Docker repository
+- Add job to CI pipeline that triggers the GitOps pipeline and passes environment variables
+- Full CI/CD pipeline is triggered, where ArgoCD deploy the app as soon as code is pushed to Git repository by GitHub CI
+
+**Used technologies**:
+
+- Kubenertes
+- Kustomize
+- ArgoCD
+- Git
 
 **Reference**: 16.10
 
-![](./attachments/project-23-4-adservice-0.8.0.png)
-![](./attachments/project-23-4-trigger-workflow.png)
-![](./attachments/project-23-4-repository-dispatch.png)
-![](./attachments/project-23-4-update-adservice.png)
-![](./attachments/project-23-4-gcr-adservice-commit.png)
-![](./attachments/project-23-4-redeploy-argocd.png)
-![](./attachments/project-23-4-argocd-v0.8.1.png)
+![Adservice v0.8.0](./attachments/project-23-4-adservice-0.8.0.png)
+![Trigger Workflow](./attachments/project-23-4-trigger-workflow.png)
+![Repository Dispatch](./attachments/project-23-4-repository-dispatch.png)
+![Update Adservice](./attachments/project-23-4-update-adservice.png)
+![Adservice Commit](./attachments/project-23-4-gcr-adservice-commit.png)
+![Redeploy ArgoCD](./attachments/project-23-4-redeploy-argocd.png)
+![Adservice v0.8.1 in ArgoCD](./attachments/project-23-4-argocd-v0.8.1.png)
+
+## Project 27
+
+**Description**: Deploy OPA Gatekeeper in EKS Cluster using IaC Pipeline
+
+- Configure Gatekeeper in Terraform using Helm Chart
+- Execute IaC Pipeline to deploy OPA Gatekeeper in EKS cluster
+
+**Used technologies**:
+
+- OPA Gatekeeper
+- ArgoCD
+- GitLab CI
+- AWS EKS
+- Terraform
+- Kubernetes
+- Helm Chart
