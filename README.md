@@ -574,6 +574,17 @@ kubectl port-forward -n argocd pods/argocd-server-... 8080:8080
 
 ![ArgoCD Online Boutique Kustomize](./attachments/project-23-argocd-online-boutique-kustomize.png)
 
+**Note**: I was running a lower maximum size in my terraform scripts to save cost which led to pods being unschedulable.
+After increasing the maximum size everything synced and was fine.
+
+![ArgoCD All Nodes](./attachments/project-23-argocd-all-nodes.png)
+
+![ArgoCD All Pods](./attachments/project-23-argocd-all-pods.png)
+
+![ArgoCD Loadbalancer](./attachments/project-23-argocd-lb.png)
+
+![ArgoCD Online](./attachments/project-23-argocd-online-boutique-online.png)
+
 ### Part 3
 
 **Reference**: 16.09
@@ -581,3 +592,11 @@ kubectl port-forward -n argocd pods/argocd-server-... 8080:8080
 ### Part 4
 
 **Reference**: 16.10
+
+![](./attachments/project-23-4-adservice-0.8.0.png)
+![](./attachments/project-23-4-trigger-workflow.png)
+![](./attachments/project-23-4-repository-dispatch.png)
+![](./attachments/project-23-4-update-adservice.png)
+![](./attachments/project-23-4-gcr-adservice-commit.png)
+![](./attachments/project-23-4-redeploy-argocd.png)
+![](./attachments/project-23-4-argocd-v0.8.1.png)
