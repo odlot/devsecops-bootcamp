@@ -661,3 +661,8 @@ After increasing the maximum size everything synced and was fine.
 - Terraform
 - Kubernetes
 - Helm Chart
+
+**Note**: Use AWS user to assume K8s admin role and connect to the EKS cluster.
+
+Check the namespace for the `openpolicyagent` namespace: `kubectl get ns`.
+Check what has been deployed into the `openpolicyagent` namespace: `kubectl get all -n openpolicyagent`.
