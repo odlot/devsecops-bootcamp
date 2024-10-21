@@ -55,7 +55,7 @@ jobs:
       # Deploy ArgoCD
       - name: ArgoCD
         run: |
-          aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} -name ${{ secrets.TF_VAR_name }}
+          aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} --name ${{ secrets.TF_VAR_name }}
           export KUBE_CONFIG_PATH=/root/.kube/config
           kubectl apply -f online-boutique-app.yaml
         working-directory: ./project-23
