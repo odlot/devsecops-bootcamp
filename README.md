@@ -535,6 +535,8 @@ AWS using trusted, third-party web identity provider.
 
 **Note**: Uses [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) for accessing the private repository `odlot/devsecops-bootcamp-online-boutique-gitops`.
 
+![Online Boutique created](./attachments/project-23-online-boutique-created.png)
+
 To connect with another user, create access keys and export them, i.e. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the current terminal session.
 
 Verify with `aws sts get-caller-identity`.
@@ -549,6 +551,8 @@ Authenticate with eks: `aws eks --region eu-north-1 update-kubeconfig --name mya
 
 List all pods deployed in the `argocd` namespace: `kubectl get pod -n argocd`.
 
+![ArgoCD deployed](./attachments/project-23-argocd-deployed.png)
+
 Retrieve the ArgoCD UI password for login: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`.
 
 Localhost port-forwarding to be able to access the ArgoCD UI:
@@ -558,9 +562,17 @@ kubectl describe pod argocd-server-... -n argocd
 kubectl port-forward -n argocd pods/argocd-server-... 8080:8080
 ```
 
+![ArgoCD port-forwarding](./attachments/project-23-argocd-port-forwarding.png)
+
+![ArgoCD UI](./attachments/project-23-argocd-ui.png)
+
+![ArgoCD Online Boutique](./attachments/project-23-argocd-online-boutique.png)
+
 ### Part 2
 
 **Reference**: 16.08
+
+![ArgoCD Online Boutique Kustomize](./attachments/project-23-argocd-online-boutique-kustomize.png)
 
 ### Part 3
 
