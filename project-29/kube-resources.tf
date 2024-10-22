@@ -93,3 +93,15 @@ resource "kubernetes_cluster_role_binding" "cluster_viewer" {
   }
 }
 
+# service account that can assume aws externalsecrets-role
+resource "kubernetes_service_account" "externalsecrets-sa" {
+  depends_on = [aws_iam_role.externalsecrets-role]
+  metadata {
+    name      = "externalsecrets-sa"
+    namespace = "online-boutique"
+
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.externalsecrets-role.arn
+    }
+  }
+}

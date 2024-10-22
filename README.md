@@ -702,7 +702,23 @@ List all gatekeeper `crd` templates available with `kubectl get crd -n openpolic
 **Used technologies**:
 
 - External Secrets Operator
-- GitLab CI
+- GitHub Workflow (CI)
+- AWS EKS
+- Terraform
+- K8s
+
+### Project 29 - Part 2
+
+**Description**: Create secrets in AWS Secrets Manager and give access to K8s Service Account to access the secrets
+
+- Add TF configuration to create IAM role with permission to access the AWS Secrets Manager secrets
+- Add TF config to create K8s Service Account that maps to the IAM role
+- Deploy the TF configuration via IaC pipeline
+
+**Used technologies**:
+
+- AWS Secrets Manager
+- GitHub Workflow (CI)
 - AWS EKS
 - Terraform
 - K8s
