@@ -1,4 +1,4 @@
-name: project-27
+name: project-29
 
 on: workflow_dispatch
 
@@ -22,7 +22,7 @@ jobs:
       - name: Set TERRAFORM_CREATE
         id: set-output
         run: |
-          echo "::set-output name=TERRAFORM_CREATE::false"
+          echo "::set-output name=TERRAFORM_CREATE::true"
 
   aws-create:
     needs: setup
@@ -41,17 +41,17 @@ jobs:
         run: aws sts get-caller-identity
       - name: Terraform init
         run: terraform init
-        working-directory: ./project-27
+        working-directory: ./project-29
       - name: Terraform validate
         run: terraform validate
-        working-directory: ./project-27
+        working-directory: ./project-29
       # Create
       - name: Terraform plan
         run: terraform plan -out "planfile"
-        working-directory: ./project-27
+        working-directory: ./project-29
       - name: Terraform deploy
         run: terraform apply -input=false "planfile"
-        working-directory: ./project-27
+        working-directory: ./project-29
       # Deploy ArgoCD
       - name: ArgoCD
         run: |
@@ -59,7 +59,7 @@ jobs:
           export KUBE_CONFIG_PATH=/root/.kube/config
           kubectl apply -f online-boutique-app.yaml
           kubectl apply -f platform-app.yaml
-        working-directory: ./project-27
+        working-directory: ./project-29
 
   aws-destroy:
     needs: setup
@@ -78,14 +78,14 @@ jobs:
         run: aws sts get-caller-identity
       - name: Terraform init
         run: terraform init
-        working-directory: ./project-27
+        working-directory: ./project-29
       - name: Terraform validate
         run: terraform validate
-        working-directory: ./project-27
+        working-directory: ./project-29
       # Destroy
       - name: Terraform plan destroy
         run: terraform plan -destroy -out "planfile"
-        working-directory: ./project-27
+        working-directory: ./project-29
       - name: Terraform destroy
         run: terraform apply -auto-approve "planfile"
-        working-directory: ./project-27
+        working-directory: ./project-29

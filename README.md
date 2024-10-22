@@ -687,3 +687,22 @@ List all gatekeeper `crd` templates available with `kubectl get crd -n openpolic
 - Kustomize
 - ArgoCD
 - Git
+
+![Platform](./attachments/project-27-platform.png)
+![Templates](./attachments/project-27-templates.png)
+![Templates and Constraints](./attachments/project-27-templates+constraints.png)
+
+## Project 29 - Store K8s secrets centrally in AWS Secrets Manager to fetch them in cluster using External Secrets Operator
+
+**Description**: Deploy external secrets operator in EKS cluster via IaC pipeline
+
+- Enable External secrets EKS add-on in Terraform's EKS blueprints module
+- Execute IaC pipeline to deploy external secrets add-on in EKS cluster
+
+**Used technologies**:
+
+- External Secrets Operator
+- GitLab CI
+- AWS EKS
+- Terraform
+- K8s
