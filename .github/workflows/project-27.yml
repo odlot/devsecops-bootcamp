@@ -58,6 +58,7 @@ jobs:
           aws eks update-kubeconfig --region ${{ secrets.TF_VAR_aws_region }} --name ${{ secrets.TF_VAR_name }}
           export KUBE_CONFIG_PATH=/root/.kube/config
           kubectl apply -f online-boutique-app.yaml
+          kubectl apply -f platform-app.yaml
         working-directory: ./project-27
 
   aws-destroy:

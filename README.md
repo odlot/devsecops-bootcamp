@@ -666,3 +666,24 @@ After increasing the maximum size everything synced and was fine.
 
 Check the namespace for the `openpolicyagent` namespace: `kubectl get ns`.
 Check what has been deployed into the `openpolicyagent` namespace: `kubectl get all -n openpolicyagent`.
+List all gatekeeper `crd` templates available with `kubectl get crd -n openpolicyagent`.
+
+### Project 27 - Part 2
+
+**Description**: Configure policies to enforce best practices automatically: i) Block service with type `NodePort` ii) Disallow priviliged containers
+
+- Create constraint template and constraint manifest files to disallow `NodePort` service types
+- Create Kustomization file for deployment
+- Create ArgoCD application configuration to sync Git repository
+- Adjust GitHub CI IaC pipeline to deploy ArgoCD application
+- Push manifest file with service type `NodePort` to test successful rejection by OPA
+- Create constraint template and constraint manifest files to disallow privileged containers
+- Push manifest file with privileged container configuration to test succesful rejection by OPA
+
+**Used technologies**:
+
+- OPA Gatekeeper
+- Kubernetes
+- Kustomize
+- ArgoCD
+- Git
