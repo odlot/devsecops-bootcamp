@@ -22,7 +22,7 @@ jobs:
       - name: Set TERRAFORM_CREATE
         id: set-output
         run: |
-          echo "::set-output name=TERRAFORM_CREATE::false"
+          echo "::set-output name=TERRAFORM_CREATE::true"
 
   aws-create:
     needs: setup
