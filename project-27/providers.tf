@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.0"
   backend "s3" {
     bucket = "iac-bucket-devsecops-bootcamp"
-    key    = "iac/project-23-state.tfstate"
+    key    = "iac/project-27-state.tfstate"
     region = "eu-north-1"
   }
   required_providers {
