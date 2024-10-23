@@ -727,11 +727,6 @@ List all gatekeeper `crd` templates available with `kubectl get crd -n openpolic
 - K8s
 
 ![](./attachments/project-29-sa.png)
-![](./attachments/project-29-argocd-view-externalsecret.png)
-![](./attachments/project-29-argocd-platform.png)
-![](./attachments/project-29-secret.png)
-![](./attachments/project-29-secret-key-in-microservice.png)
-![](./attachments/project-29-new-api-key.png)
 
 ### Project 31 - Fetch secrets from AWS Secrets Manager using External Secrets Operator CRDs and map them to K8s secrets
 
@@ -752,3 +747,11 @@ Manager
 - Kustomize
 - ArgoCD
 - GitHub Workflow
+
+![](./attachments/project-29-argocd-view-externalsecret.png)
+![](./attachments/project-29-argocd-platform.png)
+![](./attachments/project-29-secret.png)
+![](./attachments/project-29-secret-key-in-microservice.png)
+![](./attachments/project-29-new-api-key.png)
+
+# Project 32 - Deploy Istio Service Mesh and Expose a Secure Istio Gateway
