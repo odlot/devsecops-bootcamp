@@ -707,6 +707,9 @@ List all gatekeeper `crd` templates available with `kubectl get crd -n openpolic
 - Terraform
 - K8s
 
+![](./attachments/project-29-stripe-api-key.png)
+![](./attachments/project-29-k8s-external-secrets.png)
+
 ### Project 29 - Part 2
 
 **Description**: Create secrets in AWS Secrets Manager and give access to K8s Service Account to access the secrets
@@ -722,3 +725,30 @@ List all gatekeeper `crd` templates available with `kubectl get crd -n openpolic
 - AWS EKS
 - Terraform
 - K8s
+
+![](./attachments/project-29-sa.png)
+![](./attachments/project-29-argocd-view-externalsecret.png)
+![](./attachments/project-29-argocd-platform.png)
+![](./attachments/project-29-secret.png)
+![](./attachments/project-29-secret-key-in-microservice.png)
+![](./attachments/project-29-new-api-key.png)
+
+### Project 31 - Fetch secrets from AWS Secrets Manager using External Secrets Operator CRDs and map them to K8s secrets
+
+**Description**: Fetch secrets into K8s cluster securely from AWS Secrets
+Manager
+
+- Create ClusterSecretStore to connect K8s cluster to the AWS Secrets Manager, using K8s service account for authentication with the Secrets Manager
+- Create ExternalSecret to map secret from AWS Secrets Manager to K8s native Secret component
+- Deploy the above CRDs via ArgoCD
+- Mount the fetched secret into a pod to validate the secret has been fetched into cluster
+- Update secret value in AWS Secrets Manager to showcase the automatic syncing of the secret value into K8s cluster
+
+**Used technologies**:
+
+- AWS Secrets Manager
+- External Secrets Operator
+- Kubernetes
+- Kustomize
+- ArgoCD
+- GitHub Workflow
