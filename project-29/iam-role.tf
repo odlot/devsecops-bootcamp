@@ -100,7 +100,7 @@ resource "aws_iam_role" "externalsecrets-role" {
 }
 
 resource "aws_iam_role_policy" "externalsecrets_sa_policy" {
-  name = "externalsecrets-policy"
+  name = "externalsecrets_sa_policy"
   role = aws_iam_role.externalsecrets-role.id
   policy = jsonencode({
     Version = "2012-10-17"
