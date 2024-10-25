@@ -841,6 +841,12 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 
 **References**: 19.09
 
+![Frontend access](./attachments/project-34-frontend-access.png)
+![Frontend access denied](./attachments/project-34-frontend-access-denied.png)
+![ArgoCD](./attachments/project-34-argocd.png)
+![ArgoCD update](./attachments/project-34-argocd-update.png)
+![ArgoCD access denied](./attachments/project-34-argocd-access-denied.png)
+
 ## Project 35 - Create Automated Compliance Checks for AWS resources
 
 **Description**: Setup AWS Config to run automated compliance audit
@@ -904,3 +910,4 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 **References**: 20.08
 
 ![Project 37 Non-compliance](./attachments/project-37-non-compliance.png)
+![Project 37 Compliant](./attachments/project-37-compliant.png)
