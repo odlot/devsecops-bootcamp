@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "name" {
-  default = "myapp-eks2"
+  default = "myapp-eks32"
 }
 
 variable "k8s_version" {
