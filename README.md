@@ -771,6 +771,8 @@ Manager
 
 **Reference**: 19.03
 
+![Istio Pods](./attachments/project-32-istio-pods.png)
+
 ## Project 32 - Part 2
 
 **Description**: Expose micro services app through Istio gateway via secure Https access
@@ -792,6 +794,11 @@ Manager
 
 **Reference**: 19.04, 19.05
 
+![ArgoCD Frontend](./attachments/project-32-frontend-argocd.png)
+![ArgoCD Frontend Updating](./attachments/project-32-frontend-argocd-updated.png)
+![ArgoCD Frontend Updated](./attachments/project-32-frontend-argocd-update-completed.png)
+![AWS LB](./attachments/project-32-load-balancer.png)
+
 **Notes**:
 
 Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -days 30 -nodes -keyout key.pem -out cert.pem -subj "/CN=*.twnn.com"`
@@ -810,6 +817,8 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 - Kubernetes
 
 **References**: 19.06
+
+![istioctl](./attachments/project-33-istioctl.png)
 
 ## Project 34 - Secure Pod Traffic using Istio AuthorizationPolicy
 
@@ -868,6 +877,13 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 
 **References**: 20.06, 20.07
 
+![Restricted SSH 1](./attachments/project-36-restricted-ssh.png)
+![Restricted SSH 2](./attachments/project-36-restricted-ssh-2.png)
+![Rule](./attachments/project-36-rule.png)
+![Restricted SSH compliant](./attachments/project-36-restricted-ssh-compliant.png)
+![Updated policy](./attachments/project-36-updated-policy.png)
+![Compliance](./attachments/project-36-compliance.png)
+
 ## Project 37 - Create Automated Compliance Checks for EKS Cluster compliance
 
 **Description**: Setup AWS Config to run automated compliance checks for EKS cluster configuration
@@ -884,3 +900,5 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 - Kubernetes
 
 **References**: 20.08
+
+![Project 37 Non-compliance](./attachments/project-37-non-compliance.png)
