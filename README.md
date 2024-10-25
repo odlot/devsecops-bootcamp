@@ -819,6 +819,8 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 **References**: 19.06
 
 ![istioctl](./attachments/project-33-istioctl.png)
+![istioctl permissive](./attachments/project-33-istioctl-permissive.png)
+![mtls](./attachments/project-33-mtls.png)
 
 ## Project 34 - Secure Pod Traffic using Istio AuthorizationPolicy
 
