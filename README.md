@@ -748,10 +748,84 @@ Manager
 - ArgoCD
 - GitHub Workflow
 
-![](./attachments/project-29-argocd-view-externalsecret.png)
-![](./attachments/project-29-argocd-platform.png)
-![](./attachments/project-29-secret.png)
-![](./attachments/project-29-secret-key-in-microservice.png)
-![](./attachments/project-29-new-api-key.png)
+![ArgoCD View ExternalSecret](./attachments/project-29-argocd-view-externalsecret.png)
+![ArgoCD Platform](./attachments/project-29-argocd-platform.png)
+![Secret](./attachments/project-29-secret.png)
+![Secret Key in Microservice](./attachments/project-29-secret-key-in-microservice.png)
+![New API key](./attachments/project-29-new-api-key.png)
 
-# Project 32 - Deploy Istio Service Mesh and Expose a Secure Istio Gateway
+## Project 32 - Deploy Istio Service Mesh and Expose a Secure Istio Gateway
+
+**Description**: Deploy Istio Service Mesh in EKS Cluster via IaC pipeline
+
+- Install Istio and Istio gateway in EKS cluster using Terraform configuration, enable proxy injection in app namespace
+- Execute IaC Pipeline to deploy Istio in EKS cluster
+
+**Used technologies**:
+
+- Istio
+- GitHub Workflow
+- AWS EKS
+- Terraform
+- Kubernetes
+
+**Reference**: 19.03
+
+## Project 32 - Part 2
+
+**Description**: Expose micro services app through Istio gateway via secure Https access
+
+- Configure traffic routing in cluster via Istio
+- Create Virtual Service for the frontend of the application to route traffic to microservice app via gateway
+- Generate self-signed certificate for Istio gateway TLS and store in AWS Secrets Manager
+- Configure Istio Gateway to only access secure https connection
+
+**Used technologies**:
+
+- Istio
+- Istio gateway
+- AWS Secrets Manager
+- GitHub Workflow
+- AWS EKS
+- ArgoCD
+- Kubernetes
+
+**Reference**: 19.04, 19.05
+
+**Notes**:
+
+Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -days 30 -nodes -keyout key.pem -out cert.pem -subj "/CN=*.twnn.com"`
+
+## Project 33 - Enable Strict mTLS in Istio Service Mesh
+
+**Description**: Validate Istio mTLS traffic enabled in the app namespace
+
+- Deploy a test pod to validate mTLS traffic between pods with envoy proxies
+- Enable Strict mTLS mode to disallow any unencrypted traffic between pods
+
+**Used technologies**:
+
+- Istio
+- AWS EKS
+- Kubernetes
+
+**References**: 19.06
+
+## Project 34 - Secure Pod Traffic using Istio AuthorizationPolicy
+
+**Description**: Secure Pod Traffic using Istio Authorization Policy components
+
+- Create Authorization Policy for pods within the application namespace
+- Enable proxy injection in ArgoCD namespace
+- Validate restricted traffic rules by sending requests from different pods within the cluster
+- Create Authorization Policy to restrict traffic from application to ArgoCD namespace
+
+**Used technologies**:
+
+- Istio
+- AWS EKS
+- ArgoCD
+- Kustomization
+- Kubernetes
+
+**References**: 19.09
