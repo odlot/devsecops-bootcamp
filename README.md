@@ -829,3 +829,58 @@ Create a certificate via openssl: `openssl req -x509 -newkey rsa:4096 -sha256 -d
 - Kubernetes
 
 **References**: 19.09
+
+## Project 35 - Create Automated Compliance Checks for AWS resources
+
+**Description**: Setup AWS Config to run automated compliance audit
+
+- Setup rule to validate ssh ports aren’t open on EC2 servers
+- Rule to check CloudTrail is always enabled and logging
+
+**Used technologies**:
+
+- AWS
+- AWS Config
+- Security Group
+- CloudTrail
+- AWS EC2
+
+**References**: 20.05
+
+![AWS Config Dashboard](./attachments/project-35-aws-config-dashboard.png)
+![AWS Config Non-compliant rules](./attachments/project-35-aws-config-non-compliant-rules.png)
+
+## Project 36 - Auto Remediate Compliance Issues
+
+**Description**: Configure auto remediation for compliance issues
+
+- Create IAM role for SSM to modify security group and CloudTrail resources
+- Configure auto-remediation with SSM script to remove ssh ingress rule from security group
+- Configure auto-remediation to enable logging in CloudTrail
+
+**Used technologies**:
+
+- AWS
+- AWS Config
+- Security Group
+- CloudTrail
+- AWS EC2
+
+**References**: 20.06, 20.07
+
+## Project 37 - Create Automated Compliance Checks for EKS Cluster compliance
+
+**Description**: Setup AWS Config to run automated compliance checks for EKS cluster configuration
+
+- Add rule to validate using supported K8s version in EKS clusters in AWS account
+- Add rule to ensure all EKS control plane components have logging enabled
+- Manually enable logging of EKS cluster components to make the cluster compliant
+
+**Used technologies**:
+
+- AWS
+- AWS Config
+- AWS EKS
+- Kubernetes
+
+**References**: 20.08
